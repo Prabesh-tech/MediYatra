@@ -1,0 +1,173 @@
+MEDIYATRA WEBSITE - WORK COMPLETED
+Prepared: 3 October 2026
+
+PURPOSE
+This file summarizes the MediYatra website and platform work documented in the
+project, with a separate record of the visual changes completed in this work
+session. Features described as existing platform functionality come from the
+repository README and source structure; they are not all new changes from this
+session.
+
+1. WEBSITE AND PROJECT OVERVIEW
+
+MediYatra is presented as a Nepal-based healthcare coordination and medical
+travel support service. The website explains support for patients travelling
+from Nepal to a chosen hospital in India, and nursing care requested for home
+visits. It distinguishes coordination support from clinical care: patients
+choose their providers, and diagnosis, treatment and clinical decisions remain
+with qualified doctors and hospitals.
+
+The project is a pnpm/Turborepo monorepo containing:
+- apps/web: Next.js 14 website, React, TypeScript, Tailwind CSS and next-intl.
+- apps/api: NestJS API with Prisma and PostgreSQL, Redis/BullMQ, and integration
+  adapters for external messaging and storage services.
+- packages/shared: shared TypeScript contracts and Zod schemas.
+
+The web application includes pages/routes for the homepage, About, team,
+success stories, blog, clinic, contact, medical tourism, nursing care,
+treatments, hospitals, doctors, destinations, packages, consultation, quote,
+login, registration, patient dashboard, admin, FAQ, legal information and
+travel assistance, among others.
+
+2. HOMEPAGE CONTENT AND PATIENT JOURNEY
+
+The homepage currently includes:
+- A hero with MediYatra positioning, Nepal-to-India journey messaging, and
+  calls to plan a medical journey or book nursing care.
+- A rotating medical-image background and a journey badge showing the
+  Nepal-to-India-to-home flow.
+- A trust strip covering case coordination, guided support, travel planning
+  and personal support.
+- About MediYatra and its role in practical coordination.
+- Medical tourism coordination services, including report organization,
+  hospital and doctor appointment coordination, documentation guidance,
+  travel, local transport, accommodation, family support and follow-up.
+- A seven-step patient journey, from sharing a requirement through return-home
+  and follow-up coordination.
+- Specialty categories such as oncology, cardiology, neurology, orthopaedics,
+  gastroenterology, nephrology, urology, pulmonology, women's health,
+  pediatrics and multispecialty care.
+- A clear notice that qualified doctors and hospitals make clinical decisions.
+- A doctor carousel when doctor profiles are available.
+- Reasons to choose MediYatra and location information about Nepal and India.
+- Nursing-care-at-home service descriptions.
+- Patient feedback cards, a Google reviews panel, FAQs, contact details and
+  calls to action.
+
+3. CHANGES COMPLETED IN THIS WORK SESSION
+
+Hero slideshow:
+- Replaced the homepage's static hero photograph with a slideshow of ten
+  locally served healthcare images.
+- Used the emergency-hospital image selected by the user as the first slide.
+- Added the nine other images provided by the user and the earlier
+  operating-room image.
+- Configured automatic slide changes every two seconds, looping through all
+  ten slides.
+- Added accessible slide buttons with image descriptions and an indication of
+  which slide is active.
+- Paused automatic rotation while the slideshow controls are hovered or
+  keyboard-focused.
+- Respected reduced-motion settings by disabling automatic motion and slide
+  transitions when reduced motion is requested.
+- Used a short animated transition between slides when motion is enabled.
+- Did not fetch imagery from Pinterest: the supplied Pinterest URL was its
+  general homepage, not a direct pin. The slideshow uses images supplied in
+  the conversation.
+
+Blue visual identity:
+- Updated the main blue to #0B4D9B and retained #129AA3 as the teal accent.
+- Added a light-blue surface color (#EAF3FF) and brighter sky accent (#A4E1F7).
+- Applied pale-blue gradients to selected sections and a deep-blue gradient to
+  the homepage trust strip.
+- Reduced the blue overlay opacity over the hero photographs on desktop and
+  mobile so the images are easier to see while headline text stays legible.
+
+Documentation and report:
+- Updated README.md with the current palette and a Homepage Visual
+  Implementation section.
+- Created docs/website-updates-summary.docx as an initial Word summary.
+- Captured docs/website-homepage-screenshot.png and embedded a homepage
+  screenshot in docs/website-updates-summary-with-screenshot.docx.
+- This text file provides a fuller written account of the website and work.
+
+4. IMAGE ASSETS
+
+The homepage carousel refers to these files in apps/web/public/images:
+- slide-07.png: emergency hospital entrance; first/lead carousel image.
+- slide-06.png: healthcare professional with patient-care supplies.
+- slide-03.png: hospital ward and care team.
+- slide-04.png: emergency team and hospital entrance.
+- slide-05.png: blood-pressure check.
+- slide-02.png: nurse supporting an elderly patient.
+- slide-01.png: doctor in a white coat with a stethoscope.
+- slide-08.png: dental-care scene.
+- slide-09.png: eye examination scene.
+- hero-medical-team.png: operating-room team from the earlier image supplied.
+
+The images were supplied by the user and copied into the web app's public image
+directory. Confirm rights and permission for any image before public or
+commercial use.
+
+5. PLATFORM CAPABILITIES DOCUMENTED IN THE PROJECT
+
+The repository README describes these existing application/API capabilities:
+- Public catalog reads and patient inquiry submission.
+- Private medical-report uploads using short-lived upload links.
+- Patient profile and dashboard requests.
+- Appointment requests; requests remain pending until confirmed.
+- Moderated reviews and contact-message handling.
+- An admin inquiry pipeline.
+- Authentication flows using Argon2id and access/refresh JWTs.
+- Role, CSRF and request-throttling protections.
+- Encryption for inquiry, contact and review text.
+- Prisma persistence, PostgreSQL, Redis and BullMQ.
+- S3-compatible signed document URLs and optional Resend/Twilio adapters.
+- Same-origin web BFF routes that forward to the API and preserve session
+  cookies.
+
+The README also identifies areas needing further product implementation or
+verification, including remaining domain CRUD/CMS, payment webhooks,
+automated data-request fulfillment, provider-owned admin access and two-factor
+authentication. Provider listings, prices, legal text, contact channels and
+service availability must be verified before publication. Legal content needs
+qualified review. Email and SMS delivery depend on configured provider
+credentials.
+
+6. FILES RELATED TO THE WORK
+
+- apps/web/src/components/home/hero-image-carousel.tsx
+  Carousel slide data, timing, controls, transitions and reduced-motion logic.
+- apps/web/src/components/home/mediyatra-home-content.tsx
+  Homepage composition and placement of the carousel in the hero.
+- apps/web/src/styles/globals.css
+  Site palette, hero overlay, trust strip and section visual styles.
+- apps/web/public/images/
+  Locally served healthcare images used by the slideshow.
+- README.md
+  Project overview, design palette and homepage visual implementation notes.
+- docs/website-homepage-screenshot.png
+  Standalone homepage screenshot captured during the work.
+- docs/website-updates-summary-with-screenshot.docx
+  Word summary with the homepage screenshot embedded.
+
+7. VALIDATION RECORDED
+
+- Ran `pnpm --filter @medibridge/web exec tsc --noEmit` after the carousel and
+  homepage integration changes; it completed successfully.
+- Refreshed the homepage in the browser and visually inspected the hero
+  slideshow and the lighter image overlay.
+- During the earlier local development run, the homepage returned a Next.js
+  redirect to /en and the API health endpoint returned {"status":"ok"}.
+- CSS-only palette and overlay refinements were visually checked in the browser.
+
+8. LOCAL DEVELOPMENT
+
+From the medibridge repository root, the documented development command is:
+`pnpm dev`
+
+The README lists the web app at http://localhost:3000, the API on port 4000,
+and the API health endpoint at /api/v1/health. Local PostgreSQL and Redis
+services are started separately using Docker Compose as described in README.md.
+
+END OF SUMMARY

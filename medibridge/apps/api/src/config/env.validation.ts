@@ -1,0 +1,31 @@
+import * as Joi from "joi";
+
+export const envValidationSchema = Joi.object({
+  NODE_ENV: Joi.string().valid("development", "test", "production").default("development"),
+  PORT: Joi.number().port().default(4000),
+  WEB_URL: Joi.string().default("http://localhost:3000"),
+  API_INTERNAL_URL: Joi.string().uri().default("http://localhost:4000/api/v1"),
+  NEXT_PUBLIC_SITE_URL: Joi.string().uri({ scheme: ["http", "https"] }).allow(""),
+  DATABASE_URL: Joi.string().uri({ scheme: ["postgres", "postgresql"] }).required(),
+  DIRECT_URL: Joi.string().uri({ scheme: ["postgres", "postgresql"] }),
+  JWT_ACCESS_SECRET: Joi.string().min(32).required(),
+  JWT_REFRESH_SECRET: Joi.string().min(32).required(),
+  PII_ENCRYPTION_KEY: Joi.alternatives().conditional("NODE_ENV", {
+    is: "production",
+    then: Joi.string().hex().length(64).required(),
+    otherwise: Joi.string().hex().length(64).allow("").default(""),
+  }),
+  REDIS_HOST: Joi.string().default("localhost"),
+  REDIS_PORT: Joi.number().port().default(6379),
+  REDIS_PASSWORD: Joi.string().allow(""),
+  S3_BUCKET: Joi.string().allow(""),
+  S3_REGION: Joi.string().default("auto"),
+  S3_ENDPOINT: Joi.string().uri().allow(""),
+  S3_ACCESS_KEY_ID: Joi.string().allow(""),
+  S3_SECRET_ACCESS_KEY: Joi.string().allow(""),
+  RESEND_API_KEY: Joi.string().allow(""),
+  RESEND_FROM: Joi.string().default("MediBridge <notifications@example.com>"),
+  TWILIO_ACCOUNT_SID: Joi.string().allow(""),
+  TWILIO_AUTH_TOKEN: Joi.string().allow(""),
+  TWILIO_FROM: Joi.string().allow(""),
+});

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 768" role="img" aria-labelledby="title desc">
+  <title id="title">Mediyatra Medical Tourism</title>
+  <desc id="desc">Mediyatra medical tourism logo with a medical cross, stethoscope, and airplane.</desc>
+  <defs>
+    <linearGradient id="blueTeal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B3B82" />
+      <stop offset="0.58" stop-color="#129AA3" />
+      <stop offset="1" stop-color="#129AA3" />
+    </linearGradient>
+  </defs>
+  <rect width="768" height="768" fill="#fff" />
+  <g fill="none" stroke="url(#blueTeal)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M156 390c-42 35-57 77-46 112 18 56 91 77 167 77h212" stroke-width="18" />
+    <path d="M184 355c60-77 153-120 276-131" stroke-width="17" />
+    <path d="M243 375l58 52 96-91" stroke-width="70" />
+    <path d="M414 330c-18 42-5 80 30 121l69 82c24 27 58 40 87 23 25-14 34-42 29-68" stroke-width="18" />
+    <path d="M414 330c-1-22 14-40 37-40" stroke-width="18" />
+    <path d="M548 333c1-22 17-40 40-40" stroke-width="18" />
+    <circle cx="451" cy="290" r="12" fill="#087b8c" stroke="none" />
+    <circle cx="588" cy="293" r="12" fill="#087b8c" stroke="none" />
+    <circle cx="628" cy="490" r="28" stroke-width="14" />
+  </g>
+  <path d="M535 190l28-36 54 17 67-35c18-9 34 10 20 24l-57 55-8 49-26 12-8-45-45-15z" fill="#0B3B82" />
+  <path d="M215 366h40v-40h34v40h40v34h-40v40h-34v-40h-40z" fill="#fff" />
+  <text x="384" y="655" fill="#0B3B82" font-family="Arial, Helvetica, sans-serif" font-size="88" font-weight="700" text-anchor="middle">Medi<tspan fill="#129AA3">Yatra</tspan></text>
+  <path d="M118 690h58M592 690h58" stroke="#0B3B82" stroke-width="6" />
+  <text x="384" y="700" fill="#0B3B82" font-family="Arial, Helvetica, sans-serif" font-size="27" letter-spacing="9" text-anchor="middle">MEDICAL TOURISM</text>
+  <text x="384" y="742" fill="#0B3B82" font-family="Arial, Helvetica, sans-serif" font-size="21" letter-spacing="3" text-anchor="middle">Better Care  |  Brighter Tomorrow</text>
+</svg>

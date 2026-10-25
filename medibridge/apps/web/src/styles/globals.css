@@ -628,7 +628,6 @@ h3 { font-size: 1.2rem; font-weight: 600; line-height: 1.3; }
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.78);
 }
-.hero-visual { position: absolute; z-index: -2; inset: -8% 0; height: 116%; overflow: hidden; background: var(--soft-blue); }
 .hero-slide { position: absolute; inset: 0; }
 .hero-image { object-fit: cover; object-position: 62% 40%; }
 .hero-slide .hero-image { animation: heroKenBurns 8s ease-out both; }
@@ -666,9 +665,6 @@ h3 { font-size: 1.2rem; font-weight: 600; line-height: 1.3; }
 .hero-journey-copy strong { font-size: clamp(0.95rem, 1.2vw, 1.25rem); color: var(--blue); }
 .hero-journey-copy > span { display: flex; align-items: center; gap: 0.45rem; color: var(--muted); font-size: clamp(0.78rem, 0.9vw, 0.95rem); font-weight: 600; }
 .hero-journey-copy svg { color: var(--teal); }
-.hero-search-wrap { padding-block: 1rem 1.5rem; }
-.hero-search { display: grid; max-width: 58rem; grid-template-columns: 1.2fr 1fr auto; align-items: end; gap: 0.75rem; padding: 1rem; color: var(--ink); background: var(--surface); border: 1px solid var(--blush-line); border-radius: 8px; box-shadow: 0 8px 24px rgb(63 35 42 / 7%); }
-.hero-search .field { text-align: left; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
 .hero-actions .button-accent { animation: heroPrimaryPulse 3.2s ease-in-out 1.2s infinite; }
 .hero-scroll-indicator { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 1rem; color: rgb(255 255 255 / 82%); font-size: 0.78rem; font-weight: 700; text-decoration: none; }
@@ -1076,8 +1072,6 @@ a { transition: color 160ms ease, text-decoration-color 160ms ease; }
   .hero-image { object-position: 65% center; }
   .hero-journey { position: relative; left: auto; right: auto; bottom: auto; width: min(18rem, calc(100% - 3rem)); max-width: none; padding: 0.6rem 0.7rem; margin: 0 auto 1rem; animation: none; opacity: 1; transform: none; }
   .hero-journey-icon { width: 2.25rem; height: 2.25rem; flex-basis: 2.25rem; }
-  .hero-search-wrap { padding-block: 0.75rem 1rem; }
-  .hero-search { grid-template-columns: 1fr; }
   .trust-items { grid-template-columns: 1fr 1fr; }
   .trust-item { justify-content: flex-start; border-bottom: 1px solid rgb(255 255 255 / 18%); }
   .trust-item:nth-child(2) { border-right: 0; }

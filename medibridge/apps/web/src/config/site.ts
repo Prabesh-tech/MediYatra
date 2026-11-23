@@ -21,7 +21,7 @@ export const siteConfig = {
     displayName: "Mediyatra",
     tagline: "Your Healthcare Journey, Coordinated with Care.",
     description: "Healthcare coordination from Nepal to India, nursing care at home, and practical support for patients and families.",
-    logoPath: "/icons/mediyatra-logo.svg",
+    logoPath: "/images/mediyatra-wordmark.png",
     siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.mediyatra.com",
   },
   contact: {
@@ -36,29 +36,30 @@ export const siteConfig = {
     osmUrl: `https://www.openstreetmap.org/?mlat=${address.latitude}&mlon=${address.longitude}#map=17/${address.latitude}/${address.longitude}`,
     mapEmbedUrl: `https://www.openstreetmap.org/export/embed.html?bbox=85.307%2C27.688%2C85.322%2C27.697&layer=mapnik&marker=${address.latitude}%2C${address.longitude}`,
   },
-  socialLinks: [] as readonly { label: string; href: string }[],
-  googleReviewUrl: process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL || "https://www.google.com/search?q=MediYatra+reviews",
+  socialLinks: [
+    { label: "Instagram", href: "https://www.instagram.com/_mediyatra/" },
+    { label: "TikTok", href: null },
+    { label: "Facebook", href: null },
+  ] as const,
+  googleReviewUrl: process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL || "https://www.google.com/maps/search/?api=1&query=MediYatra%2C%20Nepal",
   navigation: {
     main: [
-      { label: "Home", href: "" },
       { label: "About Us", href: "about" },
+      { label: "Services", href: "treatments" },
       { label: "Our Team", href: "team" },
       { label: "Success Stories", href: "success-stories" },
       { label: "Blog", href: "blog" },
       { label: "Clinic", href: "clinic" },
       { label: "Contact Us", href: "contact" },
     ],
-    services: [
-      { label: "Medical tourism", href: "medical-tourism", description: "Nepal to India patient coordination" },
-      { label: "Nursing care at home", href: "nursing-care", description: "Professional support at home" },
-      { label: "Treatments", href: "treatments", description: "Explore areas of care" },
-      { label: "Hospitals", href: "hospitals", description: "Provider listings are being reviewed" },
-      { label: "Doctors", href: "doctors", description: "Profiles appear after verification" },
-      { label: "Locations", href: "destinations", description: "Nepal base and India care journey" },
-      { label: "Packages", href: "packages", description: "Build a plan around your needs" },
-      { label: "Travel assistance", href: "travel-assistance", description: "Visa and arrival planning" },
-    ],
+    cta: { label: "Get a free quote", href: "quote" },
     footer: {
+      quickLinks: [
+        { label: "About", href: "about" },
+        { label: "Medical tourism", href: "medical-tourism" },
+        { label: "Home nursing", href: "nursing-care" },
+        { label: "FAQs", href: "faq" },
+      ],
       company: [
         { label: "About Us", href: "about" },
         { label: "How It Works", href: "#journey" },
@@ -133,4 +134,8 @@ export function localizedHref(locale: string, path: string) {
 export function getWhatsAppHref(message?: string) {
   const base = `https://wa.me/${siteConfig.contact.whatsappNumber}`;
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
+}
+
+export function getCopyrightYear() {
+  return new Date().getFullYear();
 }

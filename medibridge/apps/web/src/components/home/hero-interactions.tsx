@@ -1,100 +1,136 @@
 "use client";
 
-import type { PointerEvent, ReactNode } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { Fragment, type ReactNode } from "react";
+import { useMotionValue, motion, useReducedMotion, useSpring, type Variants } from "framer-motion";
+import { CheckCircle2, HeartHandshake, Plane, ArrowRight } from "lucide-react";
+import type { PointerEvent } from "react";
+import { Button } from "@/components/ui/button";
+import { localizedHref } from "@/config/site";
+import { motionDuration, motionEase, staggerChildren } from "@/lib/motion";
+import type { HomeCopy } from "@/types/home-copy";
+import { HeroImageCarousel } from "@/components/home/hero-image-carousel";
 
 type HeroSpotlightProps = {
   children: ReactNode;
   labelledBy: string;
 };
 
-export function HeroSpotlight({ children, labelledBy }: HeroSpotlightProps) {
-  function updateSpotlight(event: PointerEvent<HTMLElement>) {
-    if (event.pointerType !== "mouse" || !window.matchMedia("(min-width: 1024px)").matches) return;
+function createRevealItem(reduceMotion: boolean): Variants {
+  return {
+    hidden: { opacity: 0, y: 12, filter: "blur(5px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { duration: reduceMotion ? 0 : motionDuration.slow, ease: motionEase },
+    },
+  };
+}
+
+const trustChips = [
+  { label: "Clear coordination", Icon: CheckCircle2 },
+  { label: "Travel support", Icon: Plane },
+  { label: "Personal care", Icon: HeartHandshake },
+] as const;
+
+function HeroMagneticAction({ children }: { children: ReactNode }) {
+  const reduceMotion = useReducedMotion();
+  const revealItem = createRevealItem(Boolean(reduceMotion));
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const x = useSpring(pointerX, { stiffness: 180, damping: 22, mass: 0.35 });
+  const y = useSpring(pointerY, { stiffness: 180, damping: 22, mass: 0.35 });
+
+  function pullTowardPointer(event: PointerEvent<HTMLDivElement>) {
+    if (reduceMotion || event.pointerType !== "mouse" || !window.matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)").matches) return;
     const bounds = event.currentTarget.getBoundingClientRect();
-    event.currentTarget.style.setProperty("--hero-pointer-x", `${event.clientX - bounds.left}px`);
-    event.currentTarget.style.setProperty("--hero-pointer-y", `${event.clientY - bounds.top}px`);
-    event.currentTarget.dataset.spotlight = "true";
+    pointerX.set((event.clientX - bounds.left - bounds.width / 2) * 0.08);
+    pointerY.set((event.clientY - bounds.top - bounds.height / 2) * 0.08);
   }
 
-  function clearSpotlight(event: PointerEvent<HTMLElement>) {
-    event.currentTarget.dataset.spotlight = "false";
+  function resetPointer() {
+    pointerX.set(0);
+    pointerY.set(0);
   }
 
   return (
-    <section
-      className="hero hero-spotlight"
-      aria-labelledby={labelledBy}
-      onPointerMove={updateSpotlight}
-      onPointerLeave={clearSpotlight}
+    <motion.div
+      className="hero-action-magnet"
+      variants={revealItem}
+      style={{ x: reduceMotion ? 0 : x, y: reduceMotion ? 0 : y }}
+      onPointerMove={pullTowardPointer}
+      onPointerLeave={resetPointer}
     >
       {children}
-    </section>
+    </motion.div>
   );
 }
 
-export function HeroHeadline() {
+export function HeroSpotlight({ children, labelledBy }: HeroSpotlightProps) {
+  return <section className="hero hero-spotlight" aria-labelledby={labelledBy}>{children}</section>;
+}
+
+export function HeroStoryChapter({ children, labelledBy }: HeroSpotlightProps) {
+  return <HeroSpotlight labelledBy={labelledBy}>{children}</HeroSpotlight>;
+}
+
+export function HeroIntro({ locale, copy }: { locale: string; copy: HomeCopy["hero"] }) {
   const reduceMotion = useReducedMotion();
-  const lead = "Your healthcare journey,";
-  const emphasis = "coordinated with care.";
-  const wordVariants = {
-    hidden: { opacity: 0, y: 18 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.42, ease: "easeOut" as const } },
-  };
-  const wordsVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.075, delayChildren: 0.14 } },
-  };
+  const revealItem = createRevealItem(Boolean(reduceMotion));
+  const leadWords = copy.headlineLead.split(" ");
+  const emphasisWords = copy.headlineEmphasis.split(" ");
 
   return (
-    <motion.h1
-      id="home-title"
-      aria-label={`${lead} ${emphasis}`}
-      initial={reduceMotion ? false : "hidden"}
+    <motion.div
+      className="hero-content"
+      variants={staggerChildren}
+      initial="hidden"
       animate="visible"
-      variants={wordsVariants}
     >
-      <span aria-hidden="true">
-        {lead.split(" ").map((word, index) => (
-          <motion.span className="hero-headline-word" key={word} variants={reduceMotion ? undefined : wordVariants}>
-            {index > 0 ? " " : ""}{word}
+      <motion.p className="eyebrow hero-eyebrow" variants={revealItem}>
+        <span className="hero-kicker-dot" aria-hidden="true" />
+        {copy.eyebrow}
+      </motion.p>
+      <motion.h1 id="home-title" variants={revealItem}>
+        {leadWords.map((word, index) => (
+          <Fragment key={`${word}-${index}`}>
+            <span className="hero-headline-word" style={{ animationDelay: `${index * 0.07}s` }}>{word}</span>
+            {index < leadWords.length - 1 ? " " : ""}
+          </Fragment>
+        ))}
+        {" "}
+        <span className="hero-headline-emphasis">
+          {emphasisWords.map((word, index) => (
+            <Fragment key={`${word}-${index}`}>
+              <span className="hero-headline-word" style={{ animationDelay: `${(leadWords.length + index) * 0.07}s` }}>{word}</span>
+              {index < emphasisWords.length - 1 ? " " : ""}
+            </Fragment>
+          ))}
+        </span>
+      </motion.h1>
+      <motion.p className="hero-subtext" variants={revealItem}>{copy.subtext}</motion.p>
+      <motion.div className="hero-actions" variants={revealItem}>
+        <HeroMagneticAction>
+          <Button variant="accent" href={localizedHref(locale, "quote")}>
+            {copy.primaryAction}<ArrowRight className="hero-primary-arrow" size={18} aria-hidden="true" />
+          </Button>
+        </HeroMagneticAction>
+        <HeroMagneticAction>
+          <Button variant="secondary" href={localizedHref(locale, "nursing-care")}>
+            {copy.secondaryAction}
+          </Button>
+        </HeroMagneticAction>
+      </motion.div>
+      <motion.div className="hero-trust-chips" variants={revealItem} aria-label="How MediYatra supports your journey">
+        {trustChips.map(({ label, Icon }) => (
+          <motion.span className="hero-trust-chip" key={label} variants={revealItem}>
+            <Icon size={16} aria-hidden="true" />
+            {label}
           </motion.span>
         ))}
-      </span>{" "}
-      <span className="hero-headline-emphasis" aria-hidden="true">
-        {emphasis.split(" ").map((word, index) => (
-          <motion.span className="hero-headline-word" key={word} variants={reduceMotion ? undefined : wordVariants}>
-            {index > 0 ? " " : ""}{word}
-          </motion.span>
-        ))}
-      </span>
-    </motion.h1>
+      </motion.div>
+    </motion.div>
   );
 }
 
-export function HeroEyebrow() {
-  const reduceMotion = useReducedMotion();
-  const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.12, delayChildren: 0.08 } },
-  };
-  const variants = {
-    hidden: { opacity: 0, y: 8 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" as const } },
-  };
-
-  return (
-    <motion.p
-      className="eyebrow"
-      aria-label="MediYatra, Nepal to India"
-      variants={containerVariants}
-      initial={reduceMotion ? false : "hidden"}
-      animate={reduceMotion ? undefined : "visible"}
-    >
-      <span className="hero-kicker-dot" aria-hidden="true" />
-      <motion.span aria-hidden="true" variants={reduceMotion ? undefined : variants}>MEDIYATRA</motion.span>
-      <motion.span aria-hidden="true" variants={reduceMotion ? undefined : variants}>/</motion.span>
-      <motion.span aria-hidden="true" variants={reduceMotion ? undefined : variants}>NEPAL TO INDIA</motion.span>
-    </motion.p>
-  );
-}
+export { HeroImageCarousel };

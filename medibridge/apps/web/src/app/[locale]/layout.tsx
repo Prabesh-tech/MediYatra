@@ -28,7 +28,7 @@ const organizationSchema = {
     telephone: siteConfig.contact.phones[0].display,
     email: siteConfig.contact.email,
   }],
-  ...(siteConfig.socialLinks.length > 0 ? { sameAs: siteConfig.socialLinks.map(({ href }) => href) } : {}),
+  ...(siteConfig.socialLinks.some(({ href }) => href) ? { sameAs: siteConfig.socialLinks.flatMap(({ href }) => href ? [href] : []) } : {}),
 };
 
 export default async function LocaleLayout({

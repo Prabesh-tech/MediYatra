@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { Check, LoaderCircle } from "lucide-react";
 import { contactMessageSchema } from "@medibridge/shared";
 import { apiPost } from "@/lib/api-client";
@@ -19,6 +20,15 @@ type NursingFields = {
   message: string;
 };
 type NursingFieldName = keyof NursingFields;
+type NursingFormCopy = {
+  consentText: string;
+  consentError: string;
+  privacyAction: string;
+  disclaimer: string;
+  submitAction: string;
+  successTitle: string;
+  successDescription: string;
+};
 
 const initialFields: NursingFields = {
   patientName: "",
@@ -31,8 +41,17 @@ const initialFields: NursingFields = {
   message: "",
 };
 
-export function NursingCareForm() {
+export function NursingCareForm({
+  locale,
+  copy,
+  careTypes,
+}: {
+  locale: string;
+  copy: NursingFormCopy;
+  careTypes: string[];
+}) {
   const [fields, setFields] = useState(initialFields);
+  const [consent, setConsent] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<FormFieldErrors>({});
   const [reference, setReference] = useState("");
   const [error, setError] = useState("");
@@ -43,6 +62,16 @@ export function NursingCareForm() {
     setFieldErrors((current) => {
       const next = { ...current };
       delete next[key];
+      return next;
+    });
+    setError("");
+  }
+
+  function updateConsent(value: boolean) {
+    setConsent(value);
+    setFieldErrors((current) => {
+      const next = { ...current };
+      delete next.consent;
       return next;
     });
     setError("");
@@ -59,6 +88,7 @@ export function NursingCareForm() {
     if (!fields.requiredDate) errors.requiredDate = "Choose a requested date.";
     if (!fields.preferredTime) errors.preferredTime = "Choose a preferred time.";
     if (!fields.careType) errors.careType = "Choose the type of care needed.";
+    if (!consent) errors.consent = copy.consentError;
 
     const message = [
       `Patient: ${fields.patientName}`,
@@ -74,7 +104,7 @@ export function NursingCareForm() {
       email: fields.email,
       subject: "Nursing care at home request",
       message,
-      consent: true,
+      consent,
     });
     if (!parsed.success) {
       const schemaErrors = getFieldErrors(parsed.error.issues);
@@ -83,6 +113,7 @@ export function NursingCareForm() {
         ? "Keep the email address to 254 characters or fewer."
         : "Enter a valid email address.";
       if (schemaErrors.message) errors.message = schemaErrors.message;
+      if (schemaErrors.consent) errors.consent = copy.consentError;
     }
     if (fields.message.length > 2000) errors.message = "Keep the message to 2,000 characters or fewer.";
 
@@ -110,7 +141,7 @@ export function NursingCareForm() {
     return (
       <div className="notice form-success" role="status">
         <Check size={19} aria-hidden="true" />
-        <span><strong>Nursing request received.</strong><br />Reference: {reference}. Our team will contact you to discuss availability and next steps.</span>
+        <span><strong>{copy.successTitle}</strong><br />Reference: {reference}. {copy.successDescription}</span>
       </div>
     );
   }
@@ -128,7 +159,8 @@ export function NursingCareForm() {
       <div className="field">
         <label htmlFor="nursing-care-type">Type of care required</label>
         <select id="nursing-care-type" value={fields.careType} onChange={(event) => update("careType", event.target.value)} required aria-invalid={Boolean(fieldErrors.careType)} aria-describedby={fieldErrors.careType ? "nursing-care-type-error" : undefined}>
-          <option value="">Choose a service</option><option>Home nursing visit</option><option>Post-hospital care</option><option>Elderly care support</option><option>Wound and dressing care</option><option>Medication support</option><option>Basic patient monitoring</option>
+          <option value="">Choose a service</option>
+          {careTypes.map((careType) => <option key={careType}>{careType}</option>)}
         </select>
         {fieldErrors.careType && <span className="field-error" id="nursing-care-type-error" role="alert">{fieldErrors.careType}</span>}
       </div>
@@ -138,10 +170,25 @@ export function NursingCareForm() {
         {fieldErrors.message && <span className="field-error" id="nursing-message-error" role="alert">{fieldErrors.message}</span>}
         <span className="muted field-hint" id="nursing-message-count">{fields.message.length}/2,000 characters</span>
       </div>
+      <label className="consent-check" htmlFor="nursing-consent">
+        <input
+          id="nursing-consent"
+          type="checkbox"
+          checked={consent}
+          onChange={(event) => updateConsent(event.target.checked)}
+          aria-invalid={Boolean(fieldErrors.consent)}
+          aria-describedby={fieldErrors.consent ? "nursing-consent-error" : undefined}
+        />
+        <span>{copy.consentText}</span>
+      </label>
+      {fieldErrors.consent && <span className="field-error" id="nursing-consent-error" role="alert">{fieldErrors.consent}</span>}
+      <p className="muted privacy-footnote">
+        {copy.disclaimer} <Link href={`/${locale}/legal/privacy`}>{copy.privacyAction}</Link>
+      </p>
       {error && <p className="form-error-summary" role="alert">{error}</p>}
       <Button type="submit" variant="primary" disabled={submitting}>
         {submitting && <LoaderCircle className="form-submit-spinner" size={18} aria-hidden="true" />}
-        {submitting ? "Sending request…" : "Book a Nursing Visit"}
+        {submitting ? "Sending request…" : copy.submitAction}
       </Button>
     </form>
   );

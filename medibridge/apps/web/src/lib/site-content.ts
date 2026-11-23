@@ -17,6 +17,7 @@ export const faqItems = [
   { question: "Are treatment prices available?", answer: "No unverified prices are published. Request a case-specific written estimate after a provider has reviewed the relevant clinical information." },
   { question: "How should I share medical reports?", answer: "Use the private, short-lived upload links provided through an inquiry. Do not send medical reports over ordinary email or social messaging." },
   { question: "Can I make travel arrangements before a care plan is confirmed?", answer: "It is safer to wait for a written plan and confirm dates, provider availability, and current travel requirements before making non-refundable bookings." },
+  { question: "Can a family member travel with me?", answer: "Yes. Travel and accommodation coordination may include accompanying family, subject to availability." },
 ] as const;
 
 export const travelChecklist = [

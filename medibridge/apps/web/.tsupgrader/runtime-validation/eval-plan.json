@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-11-07T05:13:43Z",
+  "generatedOnPlatform": "win32",
+  "projectType": "webapp",
+  "setup": [
+    {
+      "command": "pnpm",
+      "args": ["install", "--frozen-lockfile"],
+      "cwd": "D:\\Medical Tourism\\medibridge",
+      "timeoutSeconds": 600
+    }
+  ],
+  "assertions": [
+    {
+      "name": "typecheck",
+      "kind": "process",
+      "command": "pnpm",
+      "args": ["run", "typecheck"],
+      "verificationMethod": "exit-code",
+      "expected": "0",
+      "timeoutSeconds": 180
+    },
+    {
+      "name": "home-route-200",
+      "kind": "http-probe",
+      "startCommand": "pnpm",
+      "startArgs": ["run", "dev", "--hostname", "127.0.0.1", "--port", "3000"],
+      "url": "http://localhost:3000/en",
+      "verificationMethod": "output-contains",
+      "expected": "The journey from Nepal to India and home",
+      "timeoutSeconds": 120
+    },
+    {
+      "name": "tests-pass",
+      "kind": "process",
+      "command": "pnpm",
+      "args": ["run", "test"],
+      "verificationMethod": "test-results",
+      "expected": "0",
+      "timeoutSeconds": 60
+    }
+  ]
+}

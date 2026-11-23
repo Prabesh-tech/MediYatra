@@ -1,0 +1,114 @@
+{
+  "planHash": "bf7a3bfd58532b0e9c753fae0205415549613b4c2cd658caf3274cfe386d600d",
+  "phase": "standalone",
+  "recordedAtUtc": "2026-11-07T05:26:16.1374769Z",
+  "retryCount": 3,
+  "resetBaseline": false,
+  "complete": true,
+  "result": {
+    "setupSucceeded": true,
+    "setupDurationMs": 4329,
+    "setupFailureOutput": null,
+    "assertions": [
+      {
+        "name": "typecheck",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\r\n\u003E @medibridge/web@0.1.0 typecheck D:\\Medical Tourism\\medibridge\\apps\\web\r\n\u003E tsc --noEmit\r\n\r\n",
+        "durationMs": 5975
+      },
+      {
+        "name": "home-route-200",
+        "kind": "http-probe",
+        "verificationMethod": "output-contains",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!DOCTYPE html\u003E\u003Chtml lang=\u0022en\u0022\u003E\u003Chead\u003E\u003Cmeta charSet=\u0022utf-8\u0022/\u003E\u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1\u0022/\u003E\u003Clink rel=\u0022preload\u0022 as=\u0022image\u0022 imageSrcSet=\u0022/_next/image?url=%2Fimages%2Fslide-02.png\u0026amp;w=384\u0026amp;q=75 384w, /_next/image?url=%2Fimages%2Fslide-02.png\u0026amp;w=640\u0026amp;q=75 640w, /_next/image?url=%2Fimages%2Fslide-02.png\u0026amp;w=750\u0026amp;q=75 750w, /_next/image?url=%2Fimages%2Fslide-02.png\u0026amp;w=828\u0026amp;q=75 828w, /_next/image?url=%2Fimages%2Fslide-02.png\u0026amp;w=1080\u0026amp;q=75 1080w, /_next/image?url=%2Fimages%2Fslide-02.png\u0026amp;w=1200\u0026amp;q=75 1200w, /_next/image?url=%2Fimages%2Fslide-02.png\u0026amp;w=1920\u0026amp;q=75 1920w, /_next/image?url=%2Fimages%2Fslide-02.png\u0026amp;w=2048\u0026amp;q=75 2048w, /_next/image?url=%2Fimages%2Fslide-02.png\u0026amp;w=3840\u0026amp;q=75 3840w\u0022 imageSizes=\u0022(max-width: 760px) 92vw, (max-width: 1050px) 46vw, 43vw\u0022 fetchPriority=\u0022high\u0022/\u003E\u003Clink rel=\u0022stylesheet\u0022 href=\u0022/_next/static/css/app/layout.css?v=1794029169193\u0022 data-precedence=\u0022next_static/css/app/layout.css\u0022/\u003E\u003Clink rel=\u0022preload\u0022 as=\u0022script\u0022 fetchPriority=\u0022low\u0022 href=\u0022/_next/static/chunks/webpack.js?v=1794029169193\u0022/\u003E\u003Cscript src=\u0022/_next/static/chunks/main-app.js?v=1794029169193\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/app-pages-internals.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/app/layout.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/app/error.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/app/%5Blocale%5D/layout.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/app/%5Blocale%5D/page.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Ctitle\u003EMediyatra | Your Healthcare Journey, Coordinated with Care\u003C/title\u003E\u003Cmeta name=\u0022description\u0022 content=\u0022Healthcare coordination from Nepal to India, nursing care at home, and practical support for patients and families.\u0022/\u003E\u003Cmeta name=\u0022application-name\u0022 content=\u0022Mediyatra\u0022/\u003E\u003Clink rel=\u0022manifest\u0022 href=\u0022/manifest.webmanifest\u0022 crossorigin=\u0022use-credentials\u0022/\u003E\u003Cmeta property=\u0022og:title\u0022 content=\u0022Mediyatra | Your Healthcare Journey, Coordinated with Care\u0022/\u003E\u003Cmeta property=\u0022og:description\u0022 content=\u0022Healthcare coordination from Nepal to India, nursing care at home, and practical support for patients and families.\u0022/\u003E\u003Cmeta property=\u0022og:locale\u0022 content=\u0022en_US\u0022/\u003E\u003Cmeta property=\u0022og:type\u0022 content=\u0022website\u0022/\u003E\u003Cmeta name=\u0022twitter:card\u0022 content=\u0022summary\u0022/\u003E\u003Cmeta name=\u0022twitter:title\u0022 content=\u0022Mediyatra\u0022/\u003E\u003Cmeta name=\u0022twitter:description\u0022 content=\u0022Healthcare coordination from Nepal to India, nursing care at home, and practical support for patients and families.\u0022/\u003E\u003Clink rel=\u0022icon\u0022 href=\u0022/images/mediyatra-wordmark.png\u0022 type=\u0022image/svg\u002Bxml\u0022/\u003E\u003Cscript src=\u0022/_next/static/chunks/polyfills.js\u0022 noModule=\u0022\u0022\u003E\u003C/script\u003E\u003C/head\u003E\u003Cbody\u003E\u003Cscript\u003E((e, i, s, u, m, a, l, h)=\u003E{\n    let d = document.documentElement, w = [\n        \u0022light\u0022,\n        \u0022dark\u0022\n    ];\n    function p(n) {\n        (Array.isArray(e) ? e : [\n            e\n        ]).forEach((y)=\u003E{\n            let k = y === \u0022class\u0022, S = k \u0026\u0026 a ? m.map((f)=\u003Ea[f] || f) : m;\n            k ? (d.classList.remove(...S), d.classList.add(a \u0026\u0026 a[n] ? a[n] : n)) : d.setAttribute(y, n);\n        }), R(n);\n    }\n    function R(n) {\n        h \u0026\u0026 w.includes(n) \u0026\u0026 (d.style.colorScheme = n);\n    }\n    function c() {\n        return window.matchMedia(\u0022(prefers-color-scheme: dark)\u0022).matches ? \u0022dark\u0022 : \u0022light\u0022;\n    }\n    if (u) p(u);\n    else try {\n        let n = localStorage.getItem(i) || s, y = l \u0026\u0026 n === \u0022system\u0022 ? c() : n;\n        p(y);\n    } catch (n) {}\n})(\u0022class\u0022,\u0022mediyatra-theme\u0022,\u0022light\u0022,null,[\u0022light\u0022,\u0022dark\u0022],null,true,true)\u003C/script\u003E\u003Ca class=\u0022skip-link\u0022 href=\u0022#main-content\u0022\u003ESkip to main content\u003C/a\u003E\u003Cdiv class=\u0022site-scroll-progress\u0022 aria-hidden=\u0022true\u0022\u003E\u003Cspan style=\u0022transform:scaleX(0)\u0022\u003E\u003C/span\u003E\u003C/div\u003E\u003Cdialog class=\u0022appointment-popup\u0022 aria-labelledby=\u0022appointment-popup-title\u0022\u003E\u003Cdiv class=\u0022appointment-popup-header\u0022\u003E\u003Cdiv class=\u0022appointment-popup-heading\u0022\u003E\u003Ca class=\u0022appointment-popup-brand\u0022 aria-label=\u0022Mediyatra home\u0022 href=\u0022/en\u0022\u003E\u003Cimg alt=\u0022\u0022 loading=\u0022lazy\u0022 width=\u0022176\u0022 height=\u002248\u0022 decoding=\u0022async\u0022 data-nimg=\u00221\u0022 style=\u0022color:transparent\u0022 srcSet=\u0022/_next/image?url=%2Fimages%2Fmediyatra-wordmark.png\u0026amp\n\u2026[truncated]",
+        "durationMs": 23838
+      },
+      {
+        "name": "tests-pass",
+        "kind": "process",
+        "verificationMethod": "test-results",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\r\n\u003E @medibridge/web@0.1.0 test D:\\Medical Tourism\\medibridge\\apps\\web\r\n\u003E vitest run\r\n\r\n\r\n RUN  v5.1.0 D:/Medical Tourism/medibridge/apps/web\r\n\r\n\r\n Test Files  1 passed (1)\r\n      Tests  1 passed (1)\r\n   Start at  11:11:13\r\n   Duration  2.49s (import 44%, worker 20%, transform 20%, tests 15%, environment 1%)\r\n\r\n",
+        "durationMs": 6653,
+        "testResults": {
+          "testFramework": "vitest",
+          "runnerDetectedFrom": "package_json",
+          "testsTotal": 1,
+          "testsPassed": 1,
+          "testsFailed": 0,
+          "testsSkipped": 0,
+          "parseFailed": false
+        }
+      }
+    ],
+    "executions": [
+      {
+        "source": "setup[0]",
+        "resolvedExecutable": "C:\\Users\\ASUS\\AppData\\Roaming\\npm\\pnpm.CMD",
+        "args": [
+          "install",
+          "--frozen-lockfile"
+        ],
+        "cwd": "D:\\Medical Tourism\\medibridge",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "typecheck",
+        "resolvedExecutable": "C:\\Users\\ASUS\\AppData\\Roaming\\npm\\pnpm.CMD",
+        "args": [
+          "run",
+          "typecheck"
+        ],
+        "cwd": "D:\\Medical Tourism\\medibridge\\apps\\web",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "home-route-200",
+        "resolvedExecutable": "C:\\Users\\ASUS\\AppData\\Roaming\\npm\\pnpm.CMD",
+        "args": [
+          "run",
+          "dev",
+          "--hostname",
+          "127.0.0.1",
+          "--port",
+          "3000"
+        ],
+        "cwd": "D:\\Medical Tourism\\medibridge\\apps\\web",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      },
+      {
+        "source": "tests-pass",
+        "resolvedExecutable": "C:\\Users\\ASUS\\AppData\\Roaming\\npm\\pnpm.CMD",
+        "args": [
+          "run",
+          "test"
+        ],
+        "cwd": "D:\\Medical Tourism\\medibridge\\apps\\web",
+        "env": {},
+        "prependPath": [],
+        "platform": "win32"
+      }
+    ]
+  }
+}

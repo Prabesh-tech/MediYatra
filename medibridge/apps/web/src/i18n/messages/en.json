@@ -1,6 +1,580 @@
 {
   "home": {
-    "eyebrow": "MEDIYATRA / NEPAL",
-    "title": "Care across borders. A clearer path forward."
+    "hero": {
+      "eyebrow": "Nepal to India",
+      "headlineLead": "Your journey,",
+      "headlineEmphasis": "coordinated with care.",
+      "subtext": "From Nepal to India, we coordinate hospital visits, travel and stays.",
+      "primaryAction": "Plan your journey",
+      "secondaryAction": "Explore nursing care",
+      "serviceLine": ["Medical tourism", "Patient coordination", "Home nursing"],
+      "scrollAction": "See our approach",
+      "markKicker": "One coordinated journey",
+      "markPrompt": "Select a stage",
+      "stages": [
+        { "label": "Consultation", "description": "Discuss needs and coordinate next steps." },
+        { "label": "Documents", "description": "Organize information for your chosen provider." },
+        { "label": "Travel", "description": "Coordinate travel and accommodation arrangements." },
+        { "label": "Hospital", "description": "Support practical communication with your hospital." },
+        { "label": "Recovery", "description": "Coordinate follow-up and the return journey." }
+      ]
+    },
+    "request": {
+      "eyebrow": "Start here",
+      "heading": "How can we help?",
+      "label": "Choose a request",
+      "options": ["Ask a question", "Get a quote", "Book appointment"],
+      "appointmentNote": "Appointment requests require a patient account.",
+      "action": "Continue"
+    },
+    "trustPoints": ["Clear coordination", "Travel support", "Personal care", "Your choice"],
+    "about": {
+      "eyebrow": "About MediYatra",
+      "heading": "Care across borders",
+      "summary": "We coordinate Nepal-to-India appointments, travel and follow-up; you choose the hospital and care team.",
+      "badgeTitle": "One point of support",
+      "badgeText": "For patients and families"
+    },
+    "services": {
+      "eyebrow": "Our services",
+      "heading": "Care abroad. Support at home.",
+      "items": [
+        {
+          "title": "Medical travel",
+          "description": "Hospital, travel and follow-up coordination.",
+          "action": "Explore service"
+        },
+        {
+          "title": "Home nursing",
+          "description": "Scheduled nursing support, subject to availability.",
+          "action": "Explore service"
+        }
+      ]
+    },
+    "coordination": {
+      "eyebrow": "Journey support",
+      "heading": "Practical details, coordinated",
+      "items": [
+        { "title": "Case coordination", "description": "Organize records for your chosen provider." },
+        { "title": "Hospital appointments", "description": "Coordinate visits with your preferred specialist." },
+        { "title": "Visa and documents", "description": "Get guidance on medical travel paperwork." },
+        { "title": "Travel plans", "description": "Align travel with confirmed appointments." },
+        { "title": "Airport transfers", "description": "Plan local transport when available." },
+        { "title": "Accommodation", "description": "Explore suitable options for your family." },
+        { "title": "Hospital support", "description": "Coordinate practical steps during your visit." },
+        { "title": "Family assistance", "description": "Keep one point of contact." },
+        { "title": "Follow-up care", "description": "Coordinate reports, appointments and return plans." }
+      ]
+    },
+    "journey": {
+      "eyebrow": "How it works",
+      "heading": "Seven steps. One journey.",
+      "steps": [
+        { "number": "01", "title": "Enquiry", "description": "Tell us what you need." },
+        { "number": "02", "title": "Records", "description": "Organize reports for review." },
+        { "number": "03", "title": "Hospital", "description": "Choose your hospital." },
+        { "number": "04", "title": "Appointment", "description": "Coordinate your visit." },
+        { "number": "05", "title": "Travel", "description": "Plan travel and accommodation." },
+        { "number": "06", "title": "Support", "description": "Coordinate practical arrangements." },
+        { "number": "07", "title": "Follow-up", "description": "Plan next steps at home." }
+      ],
+      "routeLabel": "The journey from Nepal to India and home",
+      "routeDescription": "From planning in Nepal to your chosen hospital in India, with practical coordination for your return home.",
+      "route": ["Nepal", "India", "Home"]
+    },
+    "specialties": {
+      "eyebrow": "Care areas",
+      "heading": "Explore care specialties",
+      "description": "Explore specialties with your chosen hospital. We can help coordinate next steps.",
+      "panelLabel": "Specialties to discuss with your care team",
+      "items": [
+        "Oncology",
+        "Cardiology",
+        "Neurology",
+        "Orthopaedics",
+        "Gastroenterology",
+        "Nephrology",
+        "Urology",
+        "Pulmonology",
+        "Women's health",
+        "Pediatrics",
+        "General care"
+      ],
+      "clinicalNotice": "Your chosen hospital confirms availability and guides diagnosis and treatment."
+    },
+    "doctors": {
+      "eyebrow": "Meet Our Doctors",
+      "heading": "Experienced Doctors Supporting Compassionate Care",
+      "emptyMessage": "Profiles are being prepared.",
+      "profileLabel": "Doctor profile",
+      "clinicianLabel": "Clinician profile",
+      "consultAction": "Request consultation",
+      "callbackAction": "Request a call",
+      "detailAction": "View profile",
+      "carouselNote": "Treatment decisions are made by your doctor and hospital.",
+      "showProfileAction": "Show profile",
+      "previousAction": "Previous doctor",
+      "nextAction": "Next doctor",
+      "chooseProfileLabel": "Choose a doctor profile"
+    },
+    "reasons": {
+      "eyebrow": "Why MediYatra",
+      "heading": "Five ways we support your journey",
+      "items": [
+        {
+          "title": "Financial clarity",
+          "description": "Understand expected care and travel costs as you plan."
+        },
+        {
+          "title": "Find a doctor",
+          "description": "We help arrange appointments with providers you choose."
+        },
+        {
+          "title": "Full journey support",
+          "description": "Coordinate appointments, travel, stays and follow-up in one place."
+        },
+        {
+          "title": "Faster coordination",
+          "description": "Organized records and timely communication help keep plans moving."
+        },
+        {
+          "title": "Facility coordination",
+          "description": "We coordinate visits with your selected hospital or care facility."
+        }
+      ]
+    },
+    "metrics": {
+      "eyebrow": "Journey facts",
+      "heading": "Your journey, in numbers",
+      "items": [
+        { "value": 2, "label": "Countries in route" },
+        { "value": 7, "label": "Journey steps" },
+        { "value": 1, "label": "Point of contact" }
+      ]
+    },
+    "locations": {
+      "eyebrow": "Nepal to India",
+      "heading": "One journey, two countries.",
+      "summary": "Start in Nepal, coordinate with your chosen hospital in India, and plan practical travel details.",
+      "nepalTitle": "Nepal",
+      "nepalText": "Your starting point for planning.",
+      "indiaTitle": "India",
+      "indiaText": "Your chosen hospital provides treatment."
+    },
+    "nursing": {
+      "eyebrow": "Home nursing",
+      "heading": "Care arranged around you.",
+      "summary": "Request scheduled home nursing for daily support, subject to service and staff availability.",
+      "action": "Book a visit",
+      "items": [
+        "Home visits",
+        "Post-hospital care",
+        "Elderly care",
+        "Wound care",
+        "Medication support",
+        "Patient monitoring"
+      ],
+      "imageCaption": "Support arranged around your needs"
+    },
+    "stories": {
+      "eyebrow": "Support along the way",
+      "heading": "Every journey is personal",
+      "description": "We coordinate appointments, travel and stays between Nepal and India. Images are illustrative; patient stories are shared only with consent.",
+      "primaryAction": "Plan your journey"
+    },
+    "reviews": {
+      "writeEyebrow": "Google reviews",
+      "writeHeading": "Share your experience.",
+      "writeText": "Your feedback helps families decide what to ask.",
+      "writeAction": "Write a review",
+      "feedbackEyebrow": "Community feedback",
+      "feedbackHeading": "Google profile",
+      "emptyTitle": "Reviews are not connected yet.",
+      "emptyMessage": "Verified public reviews will appear here after the profile is connected.",
+      "viewAction": "Google profile"
+    },
+    "faq": {
+      "eyebrow": "Quick answers",
+      "heading": "Common questions",
+      "link": "See all FAQs",
+      "items": [
+        { "question": "Is MediYatra a hospital?", "answer": "No. MediYatra coordinates support; treatment decisions are made by your doctor and hospital." },
+        { "question": "Can I choose my hospital?", "answer": "Yes. You choose your hospital and doctor." },
+        { "question": "Who provides treatment?", "answer": "Your chosen hospital and qualified clinicians provide treatment." },
+        { "question": "What travel support can I request?", "answer": "Ask about appointments, documents, travel, transport and accommodation." },
+        { "question": "Can I request home nursing?", "answer": "Requests are discussed and arranged subject to availability." }
+      ]
+    },
+    "cta": {
+      "eyebrow": "Ready to begin?",
+      "heading": "Plan care in India",
+      "summary": "Tell us what you need. We will coordinate the next steps.",
+      "primaryAction": "Start planning",
+      "secondaryAction": "Contact us"
+    },
+    "contact": {
+      "eyebrow": "Contact us",
+      "heading": "Talk with our team",
+      "summary": "Ask a question or plan your care journey.",
+      "action": "Send enquiry"
+    }
+  },
+  "aboutPage": {
+    "eyebrow": "About MediYatra",
+    "title": "Your healthcare journey, coordinated with care.",
+    "description": "Nepal-based coordination for medical travel to India and nursing support at home.",
+    "story": {
+      "eyebrow": "Our story",
+      "heading": "Practical support, across borders.",
+      "description": "MediYatra helps patients and families organize the practical details around a care journey.",
+      "bullets": [
+        "Based in Nepal, supporting patients and families.",
+        "Coordinate practical arrangements for care journeys to India.",
+        "Connect travel planning with support at home."
+      ],
+      "action": "Explore medical travel"
+    },
+    "route": {
+      "ariaLabel": "A coordinated journey from Nepal to India and home",
+      "label": "Nepal to India and home",
+      "stops": [
+        { "title": "Nepal", "description": "Start with your needs" },
+        { "title": "India", "description": "Your chosen provider" },
+        { "title": "Home", "description": "Follow-up at home" }
+      ],
+      "footnote": "One contact for practical coordination."
+    },
+    "principles": {
+      "eyebrow": "Why we are here",
+      "heading": "Make the practical steps feel clearer.",
+      "description": "Care journeys can involve many details. We help organize those details while leaving provider and treatment decisions with you and your care team.",
+      "missionLabel": "Our mission",
+      "mission": "Coordinate useful, respectful support around each patient's chosen care journey.",
+      "visionLabel": "Our direction",
+      "vision": "A more connected experience from planning at home to follow-up after travel.",
+      "imageCaption": "Illustrative healthcare image, not MediYatra staff"
+    },
+    "choice": {
+      "eyebrow": "Your choice",
+      "heading": "You choose your hospital and provider.",
+      "clinicalNotice": "Treatment decisions are made by your doctor and hospital."
+    },
+    "values": {
+      "eyebrow": "What guides us",
+      "heading": "Support built around your choices.",
+      "description": "Our approach is practical, transparent, and centered on the patient and family.",
+      "items": [
+        { "title": "Respect your choices", "description": "You choose your provider and decide what support to request." },
+        { "title": "Keep roles clear", "description": "Doctors and hospitals make clinical decisions and provide treatment." },
+        { "title": "Coordinate with care", "description": "We help organize practical details with patients and families." }
+      ]
+    },
+    "journeyBand": {
+      "eyebrow": "The journey, connected",
+      "heading": "From planning to the return home.",
+      "description": "Coordination can support practical details at each stage, based on your request."
+    },
+    "journey": {
+      "eyebrow": "Our approach",
+      "heading": "Three steps. You decide.",
+      "steps": [
+        { "title": "Share needs", "description": "Tell us what support you need." },
+        { "title": "Coordinate details", "description": "Appointments, documents, travel, accommodation." },
+        { "title": "Choose provider", "description": "You choose your hospital and care team." }
+      ]
+    },
+    "services": {
+      "eyebrow": "Our services",
+      "heading": "Support abroad and at home.",
+      "items": [
+        {
+          "title": "Medical travel",
+          "description": "Appointments, documents, travel, and coordination.",
+          "action": "Explore service"
+        },
+        {
+          "title": "Home nursing",
+          "description": "Scheduled visits, subject to availability.",
+          "action": "Explore service"
+        }
+      ]
+    },
+    "team": {
+      "eyebrow": "The people behind coordination",
+      "heading": "Meet the MediYatra team.",
+      "description": "Team profiles are being prepared. We will share verified roles and details when they are ready.",
+      "imageLabel": "Illustrative image",
+      "imageGalleryLabel": "Illustrative healthcare images, not MediYatra staff portraits",
+      "images": [
+        { "src": "/images/slide-01.png", "alt": "Illustrative healthcare professional in a care setting" },
+        { "src": "/images/nurse-support.png", "alt": "Illustrative nurse supporting a patient" },
+        { "src": "/images/slide-05.png", "alt": "Illustrative healthcare professionals coordinating support" }
+      ],
+      "action": "Meet the team"
+    },
+    "stories": {
+      "eyebrow": "Patient stories",
+      "heading": "Real experiences, shared with permission.",
+      "description": "We do not publish invented testimonials. Approved patient stories will be shared here when available.",
+      "action": "Explore success stories"
+    },
+    "cta": {
+      "eyebrow": "Ready to plan?",
+      "heading": "Tell us what support you need.",
+      "summary": "We coordinate practical next steps.",
+      "primaryAction": "Plan your journey",
+      "secondaryAction": "Contact our team"
+    }
+  },
+  "successStoriesPage": {
+    "eyebrow": "Patient stories",
+    "title": "Patient stories, shared with care.",
+    "description": "A place for patients and families to share what coordinating a care journey was like, when they choose to do so.",
+    "hero": {
+      "home": "Home",
+      "eyebrow": "Experiences from the journey",
+      "action": "Talk with our team",
+      "secondaryAction": "Explore the page",
+      "privacyNote": "No patient story is published without permission.",
+      "imageAlt": "Illustrative image of healthcare professionals coordinating patient support",
+      "imageLabel": "Care journeys are personal",
+      "imageCaption": "Illustrative image — not a patient story"
+    },
+    "feature": {
+      "eyebrow": "Stories are being prepared",
+      "heading": "Every story belongs to the person who lived it.",
+      "description": "We are preparing this space for patient and family experiences shared by choice. Until approved stories are available, this page uses no names, quotes, or claimed outcomes.",
+      "points": ["Participation is optional", "Details are shared with permission", "Experiences are not promises"],
+      "action": "Talk with our team"
+    },
+    "collection": {
+      "eyebrow": "Experiences we may share",
+      "heading": "The practical side of a care journey.",
+      "description": "When approved stories are available, this collection can describe coordination experiences without promising clinical results.",
+      "imageLabel": "Illustrative image",
+      "placeholderBadge": "Placeholder — no patient story",
+      "items": [
+        {
+          "category": "Planning",
+          "title": "Preparing for a visit",
+          "description": "A future story may describe how a family organized questions, records, and appointment requests.",
+          "image": "/images/slide-03.png",
+          "imageAlt": "Illustrative consultation between a doctor and patient"
+        },
+        {
+          "category": "Travel coordination",
+          "title": "Arranging the journey",
+          "description": "A future story may share practical details about travel, accommodation, and local transport.",
+          "image": "/images/slide-04.png",
+          "imageAlt": "Illustrative care and travel planning discussion"
+        },
+        {
+          "category": "Support at home",
+          "title": "Planning support after travel",
+          "description": "A future story may explain how families asked about follow-up arrangements and home support.",
+          "image": "/images/nurse-support.png",
+          "imageAlt": "Illustrative nurse supporting a patient"
+        }
+      ]
+    },
+    "privacy": {
+      "eyebrow": "Consent and privacy",
+      "heading": "Your experience, your say.",
+      "items": [
+        { "title": "You choose to participate", "description": "Sharing a story is optional and requires clear, informed permission." },
+        { "title": "Personal details stay protected", "description": "We avoid publishing identifying or sensitive details without consent." },
+        { "title": "No clinical promises", "description": "A personal experience does not predict another person's care or outcome." }
+      ],
+      "notice": "MediYatra coordinates practical support. Treatment decisions are made by your doctor and hospital."
+    },
+    "cta": {
+      "eyebrow": "Share only if you wish",
+      "heading": "Have a coordination experience to share?",
+      "description": "Contact us to discuss participation. You can ask questions without agreeing to publish a story.",
+      "action": "Contact MediYatra"
+    }
+  },
+  "medicalTourismPage": {
+    "eyebrow": "Care coordination",
+    "title": "Your hospital, your choice.",
+    "description": "You choose the hospital; we coordinate your Nepal-to-India journey.",
+    "overview": {
+      "heading": "Practical travel support",
+      "description": "We coordinate reports, appointments, travel, stays, hospital support, and follow-up.",
+      "action": "Plan journey",
+      "imageAlt": "Illustrative dental consultation"
+    },
+    "services": {
+      "eyebrow": "Coordination services",
+      "heading": "Support for medical travel",
+      "items": [
+        "Cases and reports",
+        "Hospital appointments",
+        "Visas and documents",
+        "Travel planning",
+        "Airport transport",
+        "Accommodation",
+        "Hospital and family support",
+        "Follow-up coordination"
+      ]
+    },
+    "journey": {
+      "eyebrow": "How it works",
+      "heading": "Three steps. Your choice.",
+      "steps": [
+        { "title": "Share needs", "description": "Tell us what support you need." },
+        { "title": "Coordinate", "description": "We arrange appointments, documents, and travel." },
+        { "title": "Choose provider", "description": "You choose the hospital and care team." }
+      ]
+    },
+    "safety": {
+      "notice": "MediYatra does not diagnose or treat. Treatment decisions are made by your doctor and hospital."
+    }
+  },
+  "nursingCarePage": {
+    "eyebrow": "Home nursing",
+    "title": "Nursing care, arranged.",
+    "description": "Scheduled home visits, subject to availability.",
+    "overview": {
+      "heading": "Care arranged around your needs.",
+      "description": "Request scheduled nursing support at home.",
+      "scopeNotice": "Qualified professionals confirm care scope and availability.",
+      "imageAlt": "Nurse preparing care equipment"
+    },
+    "services": {
+      "eyebrow": "Nursing services",
+      "heading": "Support at home",
+      "detailsAction": "Details",
+      "items": [
+        { "title": "Home visits", "description": "Scheduled nursing support at the patient's home." },
+        { "title": "Post-hospital care", "description": "After-discharge support follows the treating professional's instructions." },
+        { "title": "Elderly care", "description": "Support for older patients needing regular care and monitoring." },
+        { "title": "Wound care", "description": "Wound and dressing support as prescribed." },
+        { "title": "Medication support", "description": "Follow medication routines set by healthcare professionals." },
+        { "title": "Patient monitoring", "description": "Record relevant observations when appropriate." }
+      ]
+    },
+    "journey": {
+      "eyebrow": "How it works",
+      "heading": "Three steps. Care at home.",
+      "steps": [
+        { "title": "Request support", "description": "Choose a service and preferred time." },
+        { "title": "Confirm availability", "description": "Qualified professionals confirm scope and timing." },
+        { "title": "Plan next steps", "description": "Discuss arrangements before confirmation." }
+      ]
+    },
+    "form": {
+      "eyebrow": "Online nursing request",
+      "heading": "Request a nursing visit.",
+      "consentText": "I consent to MediYatra using these details to respond to my request.",
+      "consentError": "Consent is required to send your request.",
+      "privacyAction": "Privacy notice",
+      "disclaimer": "This form is not medical advice or an appointment confirmation. Treatment decisions are made by your doctor and hospital.",
+      "submitAction": "Request visit",
+      "successTitle": "Request received.",
+      "successDescription": "We'll contact you about availability."
+    }
+  },
+  "treatmentsPage": {
+    "eyebrow": "MediYatra services",
+    "title": "Support for your care journey",
+    "description": "Explore medical travel coordination, home nursing, and practical support for patients and families.",
+    "services": {
+      "eyebrow": "What we coordinate",
+      "heading": "Support abroad and at home",
+      "action": "Learn more",
+      "items": [
+        {
+          "title": "Medical tourism coordination",
+          "description": "Coordinate appointments and travel around your chosen hospital.",
+          "image": "/images/slide-03.png",
+          "imageAlt": "Doctor and patient during a clinical consultation",
+          "href": "medical-tourism"
+        },
+        {
+          "title": "Nursing care at home",
+          "description": "Request in-home nursing support, subject to availability.",
+          "image": "/images/nurse-care.png",
+          "imageAlt": "Nurse preparing supplies for home care",
+          "href": "nursing-care"
+        },
+        {
+          "title": "Travel and stay assistance",
+          "description": "Coordinate travel, accommodation, and local transport details.",
+          "image": "/images/slide-04.png",
+          "imageAlt": "Patient and care team discussing practical travel planning",
+          "href": "travel-assistance"
+        }
+      ]
+    },
+    "details": {
+      "eyebrow": "A closer look",
+      "heading": "Practical support, step by step",
+      "description": "Explore what coordination may involve. Options and availability are confirmed for each request.",
+      "action": "Explore this service",
+      "items": [
+        {
+          "eyebrow": "Medical travel",
+          "title": "Coordinate care across borders",
+          "description": "We can help organize practical steps for travel from Nepal to a hospital in India. You choose the provider and discuss care decisions with its team.",
+          "points": ["Appointment coordination", "Document and report organization", "Travel and stay planning"],
+          "image": "/images/slide-08.png",
+          "imageAlt": "Illustrative dental consultation",
+          "href": "medical-tourism"
+        },
+        {
+          "eyebrow": "Support at home",
+          "title": "Arrange nursing care at home",
+          "description": "Request scheduled nursing support at home. Qualified professionals confirm care scope and availability before arrangements are made.",
+          "points": ["Home visits", "Scheduled nursing support", "Care scope confirmed by professionals"],
+          "image": "/images/nurse-care.png",
+          "imageAlt": "Nurse preparing supplies for home care",
+          "href": "nursing-care"
+        },
+        {
+          "eyebrow": "Travel assistance",
+          "title": "Plan the practical details",
+          "description": "Discuss travel timing, accommodation, and local transport. Support options and supplier availability are confirmed case by case.",
+          "points": ["Travel timing", "Accommodation questions", "Local transport and language support"],
+          "image": "/images/slide-04.png",
+          "imageAlt": "Patient and care team discussing practical travel planning",
+          "href": "travel-assistance"
+        }
+      ]
+    },
+    "coordination": {
+      "eyebrow": "A clear next step",
+      "heading": "You choose your care provider",
+      "steps": [
+        { "title": "Share your needs", "description": "Tell us what practical support you are looking for." },
+        { "title": "Coordinate details", "description": "We help organize appointments, documents, and travel." },
+        { "title": "Plan together", "description": "Review arrangements before you confirm your plans." }
+      ]
+    },
+    "assurance": {
+      "eyebrow": "Before you decide",
+      "heading": "Your choices stay at the center",
+      "items": [
+        { "title": "Choose your provider", "description": "You choose your hospital and care team." },
+        { "title": "Clinical decisions stay with your team", "description": "Treatment decisions are made by your doctor and hospital." },
+        { "title": "Confirm arrangements directly", "description": "Check availability, fees, and terms before confirming plans." }
+      ]
+    },
+    "specialties": {
+      "eyebrow": "Specialty areas",
+      "heading": "Explore care specialties",
+      "description": "Browse general information and prepare questions for your chosen care provider.",
+      "searchLabel": "Search specialty areas",
+      "searchPlaceholder": "For example, cardiac care",
+      "searchAction": "Search",
+      "action": "Learn more",
+      "notice": "Treatment decisions are made by your doctor and hospital."
+    },
+    "emptyTitle": "No matching specialty areas",
+    "cta": {
+      "heading": "Need help planning next steps?",
+      "description": "Tell us what support you need and we can discuss coordination options.",
+      "action": "Request support"
+    }
   }
 }

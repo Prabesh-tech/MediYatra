@@ -6,6 +6,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft, ArrowRight, HeartPulse, Phone, Stethoscope, UserRound } from "lucide-react";
 import { placeholderDoctors } from "@/data/doctors-placeholder";
+import type { HomeCopy } from "@/types/home-copy";
 
 export type DoctorProfile = {
   slug: string;
@@ -40,6 +41,16 @@ const copyItemVariants = {
   hidden: { opacity: 0, y: 12 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.48, ease: "easeOut" as const } },
 };
+
+function getCopyItemVariants(reduceMotion: boolean) {
+  return {
+    hidden: copyItemVariants.hidden,
+    visible: {
+      ...copyItemVariants.visible,
+      transition: { duration: reduceMotion ? 0 : 0.48, ease: "easeOut" as const },
+    },
+  };
+}
 
 function getInitials(name: string) {
   return name
@@ -81,6 +92,8 @@ export function DoctorPortrait({ doctor, compact = false }: { doctor: DoctorProf
 }
 
 function getSideDoctors(doctors: DoctorProfile[], activeIndex: number, direction: -1 | 1) {
+  if (doctors.length < 2) return [];
+
   const side: { doctor: DoctorProfile; index: number; distance: number }[] = [];
   const seen = new Set<number>([activeIndex]);
 
@@ -98,13 +111,17 @@ export function DoctorCarousel({
   doctors,
   locale,
   eyebrow = "Meet our doctors",
-  heading = "Experienced Doctors Supporting Compassionate Care",
+  heading = "Meet our doctors",
+  emptyMessage = "Doctor profiles are being prepared.",
+  copy,
   showDetailLink = true,
 }: {
   doctors: DoctorProfile[];
   locale: string;
   eyebrow?: string;
   heading?: string;
+  emptyMessage?: string;
+  copy?: HomeCopy["doctors"];
   showDetailLink?: boolean;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -116,17 +133,25 @@ export function DoctorCarousel({
   const mobileCardRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const reduceMotion = useReducedMotion();
+  const activeCopyItemVariants = getCopyItemVariants(Boolean(reduceMotion));
+  const labels = copy ?? {
+    profileLabel: "Doctor profile",
+    clinicianLabel: "Clinician profile",
+    consultAction: "Request consultation",
+    callbackAction: "Request a call",
+    detailAction: "View profile",
+    carouselNote: "Treatment decisions are made by your doctor and hospital.",
+    showProfileAction: "Show profile",
+    previousAction: "Previous doctor",
+    nextAction: "Next doctor",
+    chooseProfileLabel: "Choose a doctor profile",
+  };
   const profiles = doctors.length > 0 ? doctors : placeholderProfiles;
-  const doctor = profiles[activeIndex] ?? profiles[0];
   const isPlaceholder = doctors.length === 0;
+  const doctor = profiles[activeIndex] ?? profiles[0];
   const rightDoctors = getSideDoctors(profiles, activeIndex, 1);
   const rightDoctorIndices = new Set(rightDoctors.map(({ index }) => index));
   const leftDoctors = getSideDoctors(profiles, activeIndex, -1).filter(({ index }) => !rightDoctorIndices.has(index));
-  const detailHref = isPlaceholder
-    ? `/${locale}/team/${doctor.slug}`
-    : `/${locale}/doctors/${doctor.slug}`;
-  const consultHref = `/${locale}/quote?doctor=${encodeURIComponent(doctor.slug)}`;
-  const callbackHref = `/${locale}/contact?request=callback&doctor=${encodeURIComponent(doctor.slug)}`;
 
   const selectDoctor = useCallback((index: number) => {
     setActiveIndex((index + profiles.length) % profiles.length);
@@ -209,6 +234,25 @@ export function DoctorCarousel({
     selectDoctor(activeIndex + (endX < startX ? 1 : -1));
   }
 
+  if (!doctor) {
+    return (
+      <section className="doctor-showcase doctor-showcase-empty" aria-label={heading}>
+        <header className="doctor-showcase-header">
+          <div className="doctor-showcase-eyebrow"><span aria-hidden="true" /><p>{eyebrow}</p><span aria-hidden="true" /></div>
+          <h2>{heading}</h2>
+          <HeartPulse className="doctor-showcase-decoration" size={92} strokeWidth={0.8} aria-hidden="true" />
+        </header>
+        <p className="doctor-showcase-note">{emptyMessage}</p>
+      </section>
+    );
+  }
+
+  const detailHref = isPlaceholder
+    ? `/${locale}/team/${doctor.slug}`
+    : `/${locale}/doctors/${doctor.slug}`;
+  const consultHref = `/${locale}/quote?doctor=${encodeURIComponent(doctor.slug)}`;
+  const callbackHref = `/${locale}/contact?request=callback&doctor=${encodeURIComponent(doctor.slug)}`;
+
   function renderSideCards(items: ReturnType<typeof getSideDoctors>, side: "left" | "right") {
     return (
       <div className={`doctor-showcase-side doctor-showcase-side--${side}`} aria-label={`${side === "left" ? "Previous" : "Next"} doctor profiles`}>
@@ -219,11 +263,11 @@ export function DoctorCarousel({
             key={item.slug}
             layout
             layoutId={`doctor-card-${item.slug}`}
-            aria-label={`Show ${item.name}`}
+            aria-label={`${labels.showProfileAction}: ${item.name}`}
             onClick={() => selectDoctor(index)}
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0, transition: { delay: reduceMotion ? 0 : distance * 0.04, duration: reduceMotion ? 0 : 0.35 } }}
-            exit={reduceMotion ? undefined : { opacity: 0, y: 8 }}
+            exit={{ opacity: 0, y: 8 }}
             transition={{ duration: reduceMotion ? 0 : 0.55, ease: "easeOut" }}
             whileHover={reduceMotion ? undefined : { y: -6, boxShadow: "0 18px 35px rgba(11, 77, 155, 0.2)" }}
           >
@@ -254,7 +298,7 @@ export function DoctorCarousel({
     >
       <motion.header
         className="doctor-showcase-header"
-        initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: reduceMotion ? 0 : 0.55, ease: "easeOut" }}
@@ -272,7 +316,7 @@ export function DoctorCarousel({
         className="doctor-showcase-stage"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.12 }}
         transition={{ duration: reduceMotion ? 0 : 0.6, ease: "easeOut" }}
@@ -290,31 +334,31 @@ export function DoctorCarousel({
           <span className="doctor-showcase-line-art" aria-hidden="true" />
           <motion.div
             className="doctor-showcase-portrait-wrap"
-            initial={reduceMotion ? false : { scale: 1.04 }}
+            initial={{ scale: 1.04 }}
             animate={{ scale: 1 }}
             transition={{ duration: reduceMotion ? 0 : 0.6, ease: "easeOut" }}
           >
             <DoctorPortrait doctor={doctor} />
           </motion.div>
-          <span className="doctor-showcase-photo-label">Doctor profile</span>
+          <span className="doctor-showcase-photo-label">{labels.profileLabel}</span>
         </motion.div>
 
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
             className="doctor-showcase-copy"
             key={doctor.slug}
-            variants={reduceMotion ? undefined : copyVariants}
-            initial={reduceMotion ? false : "hidden"}
+            variants={copyVariants}
+            initial="hidden"
             animate="visible"
-            exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+            exit={{ opacity: 0, y: -8 }}
           >
-            <motion.p className="eyebrow" variants={reduceMotion ? undefined : copyItemVariants}>Independent clinician profile</motion.p>
-            <motion.h3 variants={reduceMotion ? undefined : copyItemVariants}>{doctor.name}</motion.h3>
-            <motion.p className="doctor-showcase-role" variants={reduceMotion ? undefined : copyItemVariants}>{doctor.title}</motion.p>
-            <motion.div className="doctor-showcase-actions" variants={reduceMotion ? undefined : copyItemVariants}>
-              <Link className="doctor-showcase-consult" href={consultHref}><Stethoscope size={17} aria-hidden="true" /> Consult Now</Link>
-              <Link className="doctor-showcase-text-link" href={callbackHref}><Phone size={16} aria-hidden="true" /> Call Back Request</Link>
-              {showDetailLink && <Link className="doctor-showcase-text-link" href={detailHref}>View Detail <ArrowRight size={15} aria-hidden="true" /></Link>}
+            <motion.p className="eyebrow" variants={activeCopyItemVariants}>{labels.clinicianLabel}</motion.p>
+            <motion.h3 variants={activeCopyItemVariants}>{doctor.name}</motion.h3>
+            <motion.p className="doctor-showcase-role" variants={activeCopyItemVariants}>{doctor.title}</motion.p>
+            <motion.div className="doctor-showcase-actions" variants={activeCopyItemVariants}>
+              <Link className="doctor-showcase-consult" href={consultHref}><Stethoscope size={17} aria-hidden="true" /> {labels.consultAction}</Link>
+              <Link className="doctor-showcase-text-link" href={callbackHref}><Phone size={16} aria-hidden="true" /> {labels.callbackAction}</Link>
+              {showDetailLink && <Link className="doctor-showcase-text-link" href={detailHref}>{labels.detailAction} <ArrowRight size={15} aria-hidden="true" /></Link>}
             </motion.div>
           </motion.div>
         </AnimatePresence>
@@ -322,14 +366,14 @@ export function DoctorCarousel({
         {renderSideCards(rightDoctors, "right")}
       </motion.div>
 
-      <div className="doctor-showcase-mobile-picker" ref={mobilePickerRef} aria-label="Choose a doctor profile">
+      <div className="doctor-showcase-mobile-picker" ref={mobilePickerRef} aria-label={labels.chooseProfileLabel}>
         {profiles.map((item, index) => (
           <button
             className="doctor-showcase-mobile-card"
             type="button"
             key={item.slug}
             ref={(element) => { mobileCardRefs.current[index] = element; }}
-            aria-label={`Show ${item.name}`}
+            aria-label={`${labels.showProfileAction}: ${item.name}`}
             aria-current={index === activeIndex ? "true" : undefined}
             onClick={() => selectDoctor(index)}
           >
@@ -340,26 +384,26 @@ export function DoctorCarousel({
       </div>
 
       <div className="doctor-showcase-controls" aria-label="Carousel controls">
-        <button type="button" aria-label="Previous doctor" onClick={() => selectDoctor(activeIndex - 1)}>
+        <button type="button" aria-label={labels.previousAction} onClick={() => selectDoctor(activeIndex - 1)}>
           <ArrowLeft size={19} aria-hidden="true" />
         </button>
-        <div className="doctor-showcase-dots" aria-label="Select a doctor profile">
+        <div className="doctor-showcase-dots" aria-label={labels.chooseProfileLabel}>
           {profiles.map((item, index) => (
             <button
               type="button"
               key={item.slug}
-              aria-label={`Show profile ${index + 1}: ${item.name}`}
+              aria-label={`${labels.showProfileAction} ${index + 1}: ${item.name}`}
               aria-current={index === activeIndex ? "true" : undefined}
               onClick={() => selectDoctor(index)}
             />
           ))}
         </div>
-        <button type="button" aria-label="Next doctor" onClick={() => selectDoctor(activeIndex + 1)}>
+        <button type="button" aria-label={labels.nextAction} onClick={() => selectDoctor(activeIndex + 1)}>
           <ArrowRight size={19} aria-hidden="true" />
         </button>
       </div>
 
-      <p className="doctor-showcase-note">Doctor profiles are shown for information. Treatment decisions are made by the treating doctor and hospital.</p>
+      <p className="doctor-showcase-note">{labels.carouselNote}</p>
     </section>
   );
 }

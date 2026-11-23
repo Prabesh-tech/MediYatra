@@ -1,0 +1,13 @@
+{
+  "name": "mediyatra-deploy",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "setup": "npx --yes pnpm@9.15.0 --dir medibridge install --frozen-lockfile && npx --yes pnpm@9.15.0 --dir medibridge --filter @medibridge/shared build",
+    "dev": "npm run setup && npx --yes pnpm@9.15.0 --dir medibridge --filter @medibridge/web exec next dev --hostname 0.0.0.0",
+    "build": "npm run setup && npx --yes pnpm@9.15.0 --dir medibridge --filter @medibridge/web build",
+    "start": "npx --yes pnpm@9.15.0 --dir medibridge --filter @medibridge/web exec next start --hostname 0.0.0.0"
+  }
+}

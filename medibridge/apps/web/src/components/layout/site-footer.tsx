@@ -1,98 +1,71 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ExternalLink, MapPin, ShieldCheck, Star } from "lucide-react";
-import { localizedHref, getWhatsAppHref, siteConfig } from "@/config/site";
-import { fetchAllCatalogItems } from "@/lib/catalog";
-import { SocialShareLinks } from "./social-share-links";
+import { Facebook, Instagram, Music2 } from "lucide-react";
+import { getCopyrightYear, localizedHref, siteConfig } from "@/config/site";
 import { SiteNavLink } from "./site-nav-link";
 
-type TreatmentLink = { slug: string; name: string };
-type HospitalLink = { slug: string; name: string };
-type DestinationLink = { slug: string; city: string; country: string };
+const socialIcons = { Instagram, TikTok: Music2, Facebook } as const;
 
-export async function SiteFooter({ locale }: { locale: string }) {
-  const [treatments, hospitals, destinations] = await Promise.all([
-    fetchAllCatalogItems<TreatmentLink>("treatments"),
-    fetchAllCatalogItems<HospitalLink>("hospitals"),
-    fetchAllCatalogItems<DestinationLink>("destinations"),
-  ]);
-
-  const listingGroups = [
-    { title: "Published treatments", href: "treatments", items: treatments?.map(({ slug, name }) => ({ slug, label: name })) ?? [] },
-    { title: "Published hospitals", href: "hospitals", items: hospitals?.map(({ slug, name }) => ({ slug, label: name })) ?? [] },
-    { title: "Available destinations", href: "destinations", items: destinations?.map(({ slug, city, country }) => ({ slug, label: `${city}, ${country}` })) ?? [] },
-  ].filter(({ items }) => items.length > 0);
+export function SiteFooter({ locale }: { locale: string }) {
+  const primaryPhone = siteConfig.contact.phones[0];
 
   return (
-    <>
-      <section className="footer-review-cta" aria-label="Google reviews">
-        <div className="container">
-          <a className="button button-accent" href={siteConfig.googleReviewUrl} target="_blank" rel="noreferrer">
-            <Star size={17} aria-hidden="true" />
-            Google Reviews
-            <ExternalLink size={15} aria-hidden="true" />
-          </a>
-        </div>
-      </section>
-      <footer className="site-footer">
+    <footer className="site-footer">
+      <svg className="site-footer-wave" viewBox="0 0 1440 72" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 0 H1440 V34 C1200 70 1010 8 740 39 C490 68 220 12 0 44 Z" />
+      </svg>
       <div className="container">
-        <section className="footer-location-band" aria-labelledby="footer-location-title">
-          <div>
-            <p className="eyebrow">Our location</p>
-            <h2 id="footer-location-title">Based in {siteConfig.contact.address.city}, here to help across Nepal.</h2>
-          </div>
-          <a className="footer-location-link" href={siteConfig.contact.directionsUrl} target="_blank" rel="noreferrer">
-            <MapPin size={20} aria-hidden="true" />
-            <span><strong>{siteConfig.contact.address.streetAddress}, {siteConfig.contact.address.city}</strong><small>{siteConfig.contact.address.country}</small></span>
-            <ArrowUpRight size={17} aria-hidden="true" />
-          </a>
-        </section>
-
-        <div className="footer-grid">
+        <div className="footer-compact-grid">
           <div className="footer-brand-column">
             <Link className="brand" href={localizedHref(locale, "")}>
-              <Image className="brand-mark" src={siteConfig.brand.logoPath} alt="" width={32} height={32} />
-              <span>{siteConfig.brand.displayName}</span>
+              <Image className="brand-wordmark" src={siteConfig.brand.logoPath} alt="" width={150} height={50} />
             </Link>
-            <p className="muted" style={{ maxWidth: 330, marginTop: "1rem" }}>{siteConfig.brand.description}</p>
             <p className="footer-motto">{siteConfig.brand.tagline}</p>
-            <p className="notice"><ShieldCheck size={17} aria-hidden="true" /> Your health information should only be shared through secure channels.</p>
+          </div>
+
+          <nav aria-label="Footer navigation">
+            <h2 className="footer-column-heading">Explore</h2>
+            <div className="footer-links">
+              {siteConfig.navigation.footer.quickLinks.map(({ label, href }) => (
+                <SiteNavLink key={href} href={localizedHref(locale, href)}>{label}</SiteNavLink>
+              ))}
+            </div>
             <div className="footer-social-block">
-              <h3>Share {siteConfig.brand.name}</h3>
-              <SocialShareLinks locale={locale} />
+              <h3>Follow us</h3>
+              <div className="footer-social-links" role="group" aria-label="MediYatra social media profiles">
+                {siteConfig.socialLinks.map(({ label, href }) => {
+                  const Icon = socialIcons[label];
+                  return href ? (
+                    <a key={label} href={href} aria-label={`Visit MediYatra on ${label}`} title={label} target="_blank" rel="noreferrer">
+                      <Icon size={19} aria-hidden="true" />
+                    </a>
+                  ) : (
+                    <button key={label} type="button" disabled aria-label={`${label} profile link coming soon`} title={`${label} link coming soon`}>
+                      <Icon size={19} aria-hidden="true" />
+                    </button>
+                  );
+                })}
+              </div>
+              <p>
+                {siteConfig.socialLinks.some(({ href }) => href)
+                  ? "Follow MediYatra on Instagram."
+                  : "Social profile links coming soon."}
+              </p>
             </div>
-          </div>
-          <FooterLinkGroup locale={locale} title="Company" items={siteConfig.navigation.footer.company} />
-          <div>
-            <h3>Services</h3>
-            <div className="footer-links">
-              {siteConfig.navigation.footer.services.map(({ label, href }) => (
-                <SiteNavLink key={href} href={localizedHref(locale, href)}>{label}</SiteNavLink>
-              ))}
-              {listingGroups.map(({ title, href, items }) => (
-                <div className="footer-dynamic-group" key={title}>
-                  <strong>{title}</strong>
-                  {items.map(({ slug, label }) => (
-                    <SiteNavLink key={slug} href={localizedHref(locale, `${href}/${encodeURIComponent(slug)}`)}>{label}</SiteNavLink>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h3>Contact & help</h3>
-            <div className="footer-links">
-              {siteConfig.navigation.footer.help.map(({ label, href }) => (
-                <SiteNavLink key={href} href={localizedHref(locale, href)}>{label}</SiteNavLink>
-              ))}
-              {siteConfig.contact.phones.map((phone) => <a key={phone.href} href={phone.href}>{phone.display}</a>)}
+          </nav>
+
+          <div className="footer-contact">
+            <h2 className="footer-column-heading">Contact</h2>
+            <address>
+              {siteConfig.contact.addressDisplay}<br />
+              <a href={primaryPhone.href}>{primaryPhone.display}</a><br />
               <a href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
-              <a href={getWhatsAppHref()} target="_blank" rel="noreferrer">WhatsApp support</a>
-            </div>
+            </address>
           </div>
         </div>
+
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} {siteConfig.brand.displayName}. All rights reserved.</span>
+          <span>© {getCopyrightYear()} {siteConfig.brand.displayName}. All rights reserved.</span>
           <nav className="footer-policy-links" aria-label="Legal policies">
             {siteConfig.navigation.footer.policies.map(({ label, href }) => (
               <SiteNavLink key={href} href={localizedHref(locale, href)}>{label}</SiteNavLink>
@@ -100,28 +73,6 @@ export async function SiteFooter({ locale }: { locale: string }) {
           </nav>
         </div>
       </div>
-      </footer>
-    </>
-  );
-}
-
-function FooterLinkGroup({
-  locale,
-  title,
-  items,
-}: {
-  locale: string;
-  title: string;
-  items: readonly { label: string; href: string }[];
-}) {
-  return (
-    <div>
-      <h3>{title}</h3>
-      <div className="footer-links">
-        {items.map(({ label, href }) => (
-          <SiteNavLink key={href} href={localizedHref(locale, href)}>{label}</SiteNavLink>
-        ))}
-      </div>
-    </div>
+    </footer>
   );
 }

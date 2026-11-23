@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { localizedHref } from "@/config/site";
+import type { HomeCopy } from "@/types/home-copy";
 
 const requestPaths = {
   question: "contact",
@@ -12,7 +13,7 @@ const requestPaths = {
   appointment: "consultation",
 } as const;
 
-export function HomeRequestForm({ locale }: { locale: string }) {
+export function HomeRequestForm({ locale, copy }: { locale: string; copy: HomeCopy["request"] }) {
   const router = useRouter();
   const [requestType, setRequestType] = useState<keyof typeof requestPaths>("question");
 
@@ -23,26 +24,26 @@ export function HomeRequestForm({ locale }: { locale: string }) {
 
   return (
     <aside className="hero-request-card" aria-labelledby="hero-request-title">
-      <p className="eyebrow">Start here</p>
-      <h2 id="hero-request-title">How can we help?</h2>
+      <p className="eyebrow">{copy.eyebrow}</p>
+      <h2 id="hero-request-title">{copy.heading}</h2>
       <form onSubmit={continueToRequest}>
         <div className="field">
-          <label htmlFor="hero-request-type">Choose a request</label>
+          <label htmlFor="hero-request-type">{copy.label}</label>
           <select
             id="hero-request-type"
             value={requestType}
             onChange={(event) => setRequestType(event.target.value as keyof typeof requestPaths)}
           >
-            <option value="question">Ask a question</option>
-            <option value="quote">Plan medical travel or request a quote</option>
-            <option value="appointment">Request an appointment time</option>
+            <option value="question">{copy.options[0]}</option>
+            <option value="quote">{copy.options[1]}</option>
+            <option value="appointment">{copy.options[2]}</option>
           </select>
         </div>
         {requestType === "appointment" && (
-          <p className="hero-request-help">Appointment time requests are available to signed-in patients.</p>
+          <p className="hero-request-help">{copy.appointmentNote}</p>
         )}
         <Button type="submit" variant="accent">
-          Continue <ArrowRight size={17} aria-hidden="true" />
+          {copy.action} <ArrowRight size={17} aria-hidden="true" />
         </Button>
       </form>
     </aside>

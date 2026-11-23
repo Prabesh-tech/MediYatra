@@ -22,8 +22,6 @@ healthcare professionals and hospitals, not by MediYatra.
 - Node.js 20 or newer
 - pnpm 9
 - PostgreSQL and Redis for API-backed features
-- Docker Compose, if using the local PostgreSQL and Redis services in the
-  repository's `docker-compose.yml`
 
 ## Run locally
 
@@ -38,11 +36,9 @@ Edit `.env` with local configuration. Use unique JWT secrets of at least 32
 characters and generate a 32-byte hexadecimal `PII_ENCRYPTION_KEY` for local
 development. Do not commit `.env` or use example credentials in production.
 
-Start PostgreSQL and Redis if they are not already running:
-
-```powershell
-docker compose up -d postgres redis
-```
+Start PostgreSQL and Redis separately, then configure their connection details
+in `.env` (`DATABASE_URL`, `DIRECT_URL`, `REDIS_HOST`, `REDIS_PORT`, and
+`REDIS_PASSWORD`).
 
 Prepare the database and shared package:
 
@@ -89,6 +85,7 @@ Website-only commands can be run with a workspace filter:
 | `pnpm --filter @medibridge/web build` | Build the website for production |
 | `pnpm --filter @medibridge/web start` | Serve a production build |
 | `pnpm --filter @medibridge/web typecheck` | Type-check the website |
+| `pnpm --filter @medibridge/web check:content-copy` | Check homepage and About copy length limits |
 
 ## Website routes
 

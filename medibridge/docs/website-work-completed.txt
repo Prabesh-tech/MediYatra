@@ -167,7 +167,7 @@ From the medibridge repository root, the documented development command is:
 `pnpm dev`
 
 The README lists the web app at http://localhost:3000, the API on port 4000,
-and the API health endpoint at /api/v1/health. Local PostgreSQL and Redis
-services are started separately using Docker Compose as described in README.md.
+and the API health endpoint at /api/v1/health. PostgreSQL and Redis must be
+installed or hosted separately and configured through environment variables.
 
 END OF SUMMARY

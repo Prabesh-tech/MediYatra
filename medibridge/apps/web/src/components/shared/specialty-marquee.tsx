@@ -1,18 +1,20 @@
-"use client";
-
 export function SpecialtyMarquee({ items, label }: { items: readonly string[]; label: string }) {
+  const rows = [
+    items.slice(0, 4),
+    items.slice(4, 8),
+    items.slice(8),
+  ];
+
   return (
-    <div className="specialty-marquee" role="group" aria-label={label} tabIndex={0}>
-      <div className="specialty-marquee-track" aria-hidden="true">
-        {[0, 1].map((copy) => (
-          <div className="specialty-marquee-group" key={copy}>
-            {items.map((item, index) => <span className="tag" key={`${copy}-${item}-${index}`}>{item}</span>)}
+    <div className="specialty-marquee" role="group" aria-label={label}>
+      {rows.map((row, rowIndex) => (
+        <div className={`specialty-marquee-row specialty-marquee-row-${rowIndex + 1}`} key={rowIndex}>
+          <div className="specialty-marquee-track">
+            {row.map((item) => <span className="tag" key={`${rowIndex}-${item}`}>{item}</span>)}
+            {row.map((item) => <span className="tag" key={`${rowIndex}-copy-${item}`} aria-hidden="true">{item}</span>)}
           </div>
-        ))}
-      </div>
-      <ul className="visually-hidden">
-        {items.map((item) => <li key={item}>{item}</li>)}
-      </ul>
+        </div>
+      ))}
     </div>
   );
 }

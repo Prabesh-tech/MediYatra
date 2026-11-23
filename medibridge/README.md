@@ -11,7 +11,7 @@ Reference websites:
 Treat this section and the approved MediYatra wording rules below as project constraints for every AI-assisted change. Read the root `README.md` before making website changes; specifically follow design direction section 17 and wording rules section 19.
 
 - The additional non-negotiable visual, content, and launch requirements in section 20 must be followed for every change. Do not remove, weaken, or override them unless the user explicitly approves that change.
-- The website upgrade is phased and approval-gated: (1) central site configuration and generated navigation/SEO, (2) first-impression hero, (3) shared motion system, (4) visual and responsive polish, (5) performance, SEO, and accessibility. Work in order and do not start a later phase until the user approves the previous phase.
+- The homepage storytelling redesign is phased and approval-gated: (1) shared motion system and hero with the signature layered mark, (2) problem and solution story, (3) seven-step journey, (4) service interactions, (5) remaining homepage chapters, footer, and polish. Work only on the explicitly approved phase, run its requested checks, and wait for approval before continuing.
 - Work in `apps/web` unless the request explicitly requires another package. Do not modify `apps/api` for website work.
 - Preserve existing routes, public component props, localization behavior, and the existing stack. Ask before adding dependencies.
 - Never invent facts to fill gaps: do not fabricate doctor or hospital identities, qualifications, affiliations, certifications, service availability, opening hours, prices, patient outcomes, or statistics. Use verified repository data, mark temporary content as a placeholder, or omit it.
@@ -30,13 +30,13 @@ The Phase 1 configuration source and editing guide are `apps/web/src/config/site
 
 - Node.js 20 or newer
 - pnpm 9
-- Docker Compose (for local PostgreSQL and Redis)
+- PostgreSQL and Redis, installed locally or provided by an external service
 
 ## Getting started
 
 1. Install dependencies with `pnpm install`.
 2. Copy `.env.example` to `.env`, set unique JWT secrets (32+ characters), and generate a local PII key with `openssl rand -hex 32`.
-3. Start local services with `docker compose up -d postgres redis`.
+3. Configure `DATABASE_URL`, `DIRECT_URL`, and Redis settings in `.env` to point to your running services.
 4. Generate the Prisma client with `pnpm db:generate`.
 5. Create/apply the database migration with `pnpm db:migrate`.
 6. Add generic treatment categories with `pnpm db:seed`.
@@ -44,16 +44,20 @@ The Phase 1 configuration source and editing guide are `apps/web/src/config/site
 
 The web app runs on `http://localhost:3000`; the API listens on port `4000`. The API health check is `/api/v1/health`, and development Swagger docs are at `/docs`. Web-side API calls can use the same-origin `/api/*` BFF routes, which forward to `API_INTERNAL_URL` and preserve session cookies.
 
+### Appointment request popup
+
+The website opens an appointment-request popup on a visitor's first page view in each browser session. Visitors can close it, or submit a request through the existing secure inquiry flow. The form asks for contact and request details, requires consent, and does not confirm or book an appointment; the care team must follow up. Popup behavior is implemented in `apps/web/src/components/home/appointment-request-popup.tsx`.
+
 ### Supabase PostgreSQL
 
-The API can use a Supabase-hosted PostgreSQL database through Prisma. Set `DATABASE_URL` to the Supabase connection-pooler URL for API runtime traffic and `DIRECT_URL` to the Supabase direct database URL for Prisma migrations. Keep both values private. For local development, both can point to the local PostgreSQL URL in `.env.example`. Apply checked-in migrations to a hosted database with `pnpm db:deploy`; use `pnpm db:migrate` only for local schema development.
+The API can use a Supabase-hosted PostgreSQL database through Prisma. Set `DATABASE_URL` to the Supabase connection-pooler URL for API runtime traffic and `DIRECT_URL` to the Supabase direct database URL for Prisma migrations. Keep both values private. For local development, both can point to a local PostgreSQL instance. Apply checked-in migrations to a hosted database with `pnpm db:deploy`; use `pnpm db:migrate` only for local schema development.
 
 ## Architecture
 
 - `apps/web`: Next.js 14, React Server Components, Tailwind CSS, shadcn/ui configuration, English-first next-intl, theme support, a PWA manifest, and same-origin BFF routes.
 - `apps/api`: NestJS with Argon2id account flows, access/refresh JWTs, role/CSRF/throttling guards, encrypted inquiry/contact/review text, Prisma, BullMQ, appointment requests, S3-compatible signed document URLs, and Resend/Twilio adapters.
 - `packages/shared`: shared TypeScript types and Zod schemas.
-- PostgreSQL and Redis are provided by `docker-compose.yml`. S3/R2 and messaging credentials are optional until those integrations are configured.
+- PostgreSQL and Redis must be provided separately and configured through environment variables. S3/R2 and messaging credentials are optional until those integrations are configured.
 
 Public catalog reads, inquiry intake and private report uploads, patient profile/dashboard requests, appointment requests, moderated reviews, contact-message handling, and the admin inquiry pipeline are wired. Appointment requests remain pending until confirmed. Remaining domain CRUD/CMS, payment webhooks, automated data-request fulfillment, provider-owned admin access, and two-factor authentication need product-specific implementation. Email delivery requires Resend credentials; SMS requires Twilio credentials. Provider listings, prices, legal text, and contact channels remain unpublished placeholders until verified. Legal pages are drafts and require qualified review before launch. Do not use demo keys in production; protect and back up the PII encryption key separately from the database.
 
@@ -328,6 +332,18 @@ Yes. Accommodation and travel-related coordination can also be arranged for acco
 - Pale blue section backgrounds and a deep-blue trust strip carry the blue visual theme through the homepage.
 - Use licensed or user-provided images only; confirm permission before publishing third-party images.
 
+### 18.1 Homepage Storytelling Redesign (Approval-Gated)
+
+The redesign target is one continuous, scroll-led story: **“Your healthcare journey, coordinated with care.”** The work proceeds in this order, with user approval required between phases:
+
+1. Shared Framer Motion helpers and a full-screen hero featuring a layered, exploded-view MediYatra mark.
+2. The scattered-care problem and coordinated-journey solution.
+3. The seven-step Nepal-to-India journey.
+4. Expandable Medical Tourism Coordination and Nursing Care at Home panels.
+5. Specialties, doctor showcase, reasons to choose MediYatra, verified proof/testimonials, final call to action, footer, and visual polish.
+
+Use the existing Framer Motion dependency; ask before adding dependencies such as Lenis. Keep the approved palette and Poppins, use the inline-SVG five-layer mark (Consultation, Documents, Travel, Hospital, Recovery), and use only repository images or user-supplied assets. Motion should be purposeful, primarily transform/opacity, keyboard accessible, and fully respect reduced-motion preferences. Below 768px, pinned scenes simplify to static, readable layouts. Hover content must also work on focus and touch. Any testimonial or temporary doctor content must be clearly identified as a placeholder, and all metrics or evidence must be based on verified facts. Keep clinical-responsibility wording under section 19.
+
 ### 19. Important Wording Rules
 
 - Do not describe MediYatra as a hospital unless it is legally and clinically structured as one.
@@ -346,7 +362,7 @@ These requirements supplement and take precedence over conflicting visual sugges
 #### Visual and interaction requirements
 
 - Do not make the site look like a generic, sterile, predominantly white product. Keep the approved MediYatra navy, teal, sky, and light-blue palette visually present.
-- Do not introduce gradients, shifting or jumping buttons, cursor animations, emoji icons, or excessive scroll animations.
+- Do not introduce gradients, shifting or jumping buttons, cursor animations, emoji icons, or excessive scroll animations outside an explicitly approved design change. The user-approved homepage storytelling redesign permits its requested soft gradient atmosphere and scroll-driven layered-mark effect; it does not waive reduced-motion, keyboard, touch, accessibility, or performance requirements.
 - Keep motion subtle, purposeful, and respectful of reduced-motion preferences. Do not animate controls in a way that makes them move away from a pointer or touch.
 - Use the approved form and layout pattern. Do not invent or substitute a different pattern without user approval.
 

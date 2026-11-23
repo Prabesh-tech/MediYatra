@@ -1,9 +1,35 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { MessageCircle, Phone, Star } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { getWhatsAppHref, siteConfig } from "@/config/site";
 
 export function FloatingContactActions() {
+  const [heroImageVisible, setHeroImageVisible] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setHeroImageVisible(false);
+    const heroImage = document.querySelector(".hero-image-window");
+    if (!heroImage) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setHeroImageVisible(entry.isIntersecting),
+      { threshold: 0.01 },
+    );
+
+    observer.observe(heroImage);
+    return () => observer.disconnect();
+  }, [pathname]);
+
   return (
-    <aside className="floating-contact-actions" aria-label="Quick contact and review links">
+    <aside
+      className="floating-contact-actions"
+      aria-label="Quick contact and review links"
+      aria-hidden={heroImageVisible}
+      data-hero-image-visible={heroImageVisible}
+    >
       <a className="floating-contact-link floating-phone" href={siteConfig.contact.phones[0].href} aria-label={`Call ${siteConfig.brand.name}`} title={`Call ${siteConfig.brand.name}`} data-tooltip="Call us">
         <Phone size={23} aria-hidden="true" />
         <span className="visually-hidden">Call us</span>

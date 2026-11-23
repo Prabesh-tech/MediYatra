@@ -2,6 +2,7 @@ const apiBase = process.env.API_INTERNAL_URL ?? "http://localhost:4000/api/v1";
 
 type ApiList<T> = { data: T[]; meta: { page: number; pageSize: number; total: number; pageCount: number } };
 type ApiItem<T> = { data: T };
+const catalogRequestTimeoutMs = 8000;
 
 export async function fetchCatalogList<T>(
   resource: string,
@@ -16,7 +17,10 @@ export async function fetchCatalogList<T>(
         if (value) url.searchParams.set(key, value);
       }
     }
-    const response = await fetch(url, { next: { revalidate: 30 } });
+    const response = await fetch(url, {
+      next: { revalidate: 30 },
+      signal: AbortSignal.timeout(catalogRequestTimeoutMs),
+    });
     if (!response.ok) return null;
     return await response.json() as ApiList<T>;
   } catch {
@@ -45,7 +49,10 @@ export async function fetchAllCatalogItems<T>(
 export async function fetchCatalogItem<T>(resource: string): Promise<T | null> {
   try {
     const url = new URL(resource.replace(/^\//, ""), `${apiBase.replace(/\/$/, "")}/`);
-    const response = await fetch(url, { next: { revalidate: 30 } });
+    const response = await fetch(url, {
+      next: { revalidate: 30 },
+      signal: AbortSignal.timeout(catalogRequestTimeoutMs),
+    });
     if (!response.ok) return null;
     const result = await response.json() as ApiItem<T>;
     return result.data;
